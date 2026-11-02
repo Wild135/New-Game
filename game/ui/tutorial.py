@@ -153,7 +153,7 @@ class Tutorial:
         return pygame.Rect(bubble.centerx - 190, bubble.bottom - 40, 380, 100)
 
     def _skip_rect(self) -> pygame.Rect:
-        return pygame.Rect(theme.WIDTH - 230, theme.HEIGHT - theme.NAV_H - 110, 210, 80)
+        return pygame.Rect(20, theme.TOP_BAR_H + 12, 210, 70)
 
     def draw(self, surface: pygame.Surface, ui) -> None:
         step = self.current()

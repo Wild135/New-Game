@@ -42,6 +42,7 @@ SCREENS = {
     "prestige": PrestigeScreen, "offline": OfflineScreen,
 }
 FPS = 60
+IDLE_FPS = 20
 
 
 class App:
@@ -269,7 +270,9 @@ class App:
     def run(self, max_frames: int | None = None, screenshot: str | None = None) -> None:
         frames = 0
         while self.running:
-            dt = self.clock.tick(FPS) / 1000.0
+            # Save CPU/battery when the window is in the background or minimised.
+            focused = self.headless or (pygame.display.get_active() and pygame.key.get_focused())
+            dt = self.clock.tick(FPS if focused else IDLE_FPS) / 1000.0
             self.frame(min(dt, 0.25))
             frames += 1
             if max_frames is not None and frames >= max_frames:
