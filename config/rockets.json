@@ -38,7 +38,7 @@
       },
       "value": 50,
       "rp": 0.4,
-      "unlock_cost": 3000,
+      "unlock_cost": 6000,
       "planet": null,
       "research": null,
       "colors": {
@@ -102,7 +102,7 @@
       },
       "value": 1200,
       "rp": 0.6,
-      "unlock_cost": 60000000.0,
+      "unlock_cost": 15000000.0,
       "planet": null,
       "research": null,
       "colors": {
@@ -137,7 +137,7 @@
       },
       "value": 6000,
       "rp": 0.7,
-      "unlock_cost": 40000000000.0,
+      "unlock_cost": 15000000000.0,
       "planet": null,
       "research": null,
       "colors": {
@@ -167,7 +167,7 @@
       },
       "value": 2000,
       "rp": 0.8,
-      "unlock_cost": 20000000.0,
+      "unlock_cost": 12000000.0,
       "planet": "moon",
       "research": null,
       "colors": {
@@ -201,7 +201,7 @@
       },
       "value": 15000,
       "rp": 0.9,
-      "unlock_cost": 2000000000000.0,
+      "unlock_cost": 800000000000.0,
       "planet": "mars",
       "research": null,
       "colors": {
@@ -233,7 +233,7 @@
       },
       "value": 100000.0,
       "rp": 1.0,
-      "unlock_cost": 1e+16,
+      "unlock_cost": 800000000000000.0,
       "planet": "europa",
       "research": "deep_space_nav",
       "colors": {
@@ -266,7 +266,7 @@
       },
       "value": 1000000.0,
       "rp": 1.2,
-      "unlock_cost": 1e+27,
+      "unlock_cost": 5e+21,
       "planet": "asteroid",
       "research": "warp_theory",
       "colors": {
@@ -302,7 +302,7 @@
       },
       "value": 10000000.0,
       "rp": 1.5,
-      "unlock_cost": 1e+34,
+      "unlock_cost": 1e+25,
       "planet": "deep_space",
       "research": "quantum_drive",
       "colors": {

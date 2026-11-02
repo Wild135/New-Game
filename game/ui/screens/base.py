@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Callable
 import pygame
 
 from game.rendering import icons
-from game.rendering.draw import darken, draw_paragraph, draw_text, panel
+from game.rendering.draw import darken, dim_except, draw_paragraph, draw_text, panel
 from game.ui import theme
 from game.ui.widgets import ScrollArea
 
@@ -69,14 +69,12 @@ class Screen:
 
     def popup_frame(self, surface: pygame.Surface, ui, title: str, size: tuple[int, int],
                     closable: bool = True, icon: str | None = None) -> pygame.Rect:
-        dim = pygame.Surface((theme.WIDTH, theme.HEIGHT), pygame.SRCALPHA)
-        dim.fill((0, 0, 20, 150))
-        surface.blit(dim, (0, 0))
-        anim = min(1.0, self.age / 0.2)
-        scale = 0.85 + 0.15 * (1 - (1 - anim) ** 3)
-        w, h = int(size[0] * scale), int(size[1] * scale)
-        rect = pygame.Rect(0, 0, w, h)
-        rect.center = (theme.WIDTH // 2, theme.HEIGHT // 2 - 40)
+        dim_except(surface, (0, 0, 20, 150))
+        # Slide up into place. Size stays constant so the panel graphics stay cached (no stutter).
+        anim = min(1.0, self.age / 0.18)
+        ease = 1 - (1 - anim) ** 3
+        rect = pygame.Rect(0, 0, size[0], size[1])
+        rect.center = (theme.WIDTH // 2, theme.HEIGHT // 2 - 40 + int((1 - ease) * 80))
         panel(surface, rect, (30, 50, 100), (130, 180, 255), radius=34, border=5, shadow=12)
         ribbon = pygame.Rect(rect.x + 60, rect.y - 34, rect.width - 120, 96)
         panel(surface, ribbon, (60, 110, 210), (170, 210, 255), radius=30, border=4, shadow=6)

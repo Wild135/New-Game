@@ -2,7 +2,7 @@
   "_comment": "Space Legacy prestige. Stars = floor(scale * (run_earnings / divisor) ^ exponent). Each unspent star gives star_bonus extra production.",
   "divisor": 10000000000,
   "scale": 10,
-  "exponent": 0.33,
+  "exponent": 0.36,
   "min_stars": 1,
   "star_bonus": 0.02,
   "upgrades": [

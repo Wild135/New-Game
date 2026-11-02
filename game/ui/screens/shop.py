@@ -15,9 +15,14 @@ class ShopScreen(Screen):
 
     def draw(self, surface, ui, dt):
         content = self.page_frame(surface, ui, "Shop", "cart")
-        self.tabs(surface, ui, pygame.Rect(content.x, content.y, content.width, 80), ["Boosts", "Cosmetics", "Free Gems"])
+        labels = ["Boosts", "Cosmetics", "Free Gems"]
+        if self.game.store.enabled:
+            labels.append("Store")
+        self.tabs(surface, ui, pygame.Rect(content.x, content.y, content.width, 80), labels)
         area = pygame.Rect(content.x, content.y + 100, content.width, content.height - 100)
-        if self.tab == 0:
+        if self.tab == 3 and self.game.store.enabled:
+            self.draw_store(surface, ui, area, dt)
+        elif self.tab == 0:
             self.draw_boosts(surface, ui, area, dt)
         elif self.tab == 1:
             self.draw_cosmetics(surface, ui, area, dt)
@@ -58,7 +63,8 @@ class ShopScreen(Screen):
 
     def draw_cosmetics(self, surface, ui, area, dt):
         game = self.game
-        items = [c for c in game.config.cosmetic_list if c["cost"] > 0 or c.get("requires_legacy")]
+        items = [c for c in game.config.cosmetic_list
+                 if c["cost"] > 0 or c.get("requires_legacy") or c.get("store_only")]
         row_h = 150
         y = self.begin_scroll(surface, ui, area, len(items) * (row_h + 10) + 20, dt)
         slot_names = {"paint": "Rocket paint", "decal": "Rocket decal", "exhaust": "Exhaust color",
@@ -81,10 +87,53 @@ class ShopScreen(Screen):
                         self.app.audio.play("click")
                 elif cos.get("requires_legacy"):
                     ui.button(surface, f"cos:{cos['id']}", btn, "Legacy", theme.GREY, size=32, sublabel="Space Legacy")
+                elif cos.get("store_only"):
+                    if ui.button(surface, f"cos:{cos['id']}", btn, "Exclusive", theme.ORANGE, size=32, sublabel="See Store"):
+                        self.tab = 3
+                        self.scroll.scroll_to(0)
                 elif self.cost_button(surface, ui, f"cos:{cos['id']}", btn, "Buy", cos["cost"], "gems", color=theme.PURPLE):
                     if game.shop.buy_cosmetic(cos["id"]):
                         self.app.audio.play("unlock")
             y += row_h + 10
+        self.end_scroll(surface, ui, area)
+
+    def draw_store(self, surface, ui, area, dt):
+        game = self.game
+        store = game.store
+        products = store.products
+        row_h = 200
+        banner_h = 130 if store.test_mode else 20
+        y = self.begin_scroll(surface, ui, area, banner_h + len(products) * (row_h + 12) + 40, dt)
+        if store.test_mode:
+            r = pygame.Rect(area.x, y, area.width - 16, 110)
+            self.card(surface, r, (90, 70, 20), theme.YELLOW)
+            draw_paragraph(surface, "TEST MODE - purchases are simulated and no real money is charged. "
+                                    "Real payments get connected when the game is published on a store.",
+                           pygame.Rect(r.x + 20, r.y + 14, r.width - 40, 90), 26, theme.WHITE)
+            y += banner_h
+        for product in products:
+            r = pygame.Rect(area.x, y, area.width - 16, row_h)
+            if r.bottom > area.top and r.top < area.bottom:
+                owned = product.get("one_time") and product["id"] in store.owned
+                special = product.get("one_time")
+                self.card(surface, r, (70, 50, 120) if special else (36, 58, 112),
+                          theme.GOLD if special else (90, 130, 210))
+                surface.blit(icons.icon(product.get("icon", "gem"), 120), (r.x + 20, r.y + 40))
+                draw_text(surface, product["name"], (r.x + 170, r.y + 18), 40, theme.WHITE, outline=3,
+                          max_width=r.width - 450)
+                if product.get("tag"):
+                    tag = product["tag"]
+                    tw = theme.fonts.get(24).size(tag)[0] + 26
+                    trect = pygame.Rect(r.x + 170, r.y + 66, tw, 36)
+                    pygame.draw.rect(surface, theme.RED, trect, border_radius=14)
+                    draw_text(surface, tag, trect.center, 24, theme.WHITE, anchor="center", outline=2)
+                draw_paragraph(surface, product["description"], pygame.Rect(r.x + 170, r.y + 110, r.width - 450, 90), 26)
+                btn = pygame.Rect(r.right - 250, r.y + 48, 230, 104)
+                if owned:
+                    ui.button(surface, f"iap:{product['id']}", btn, "Owned", theme.GREY, size=34, icon="check", icon_size=36)
+                elif ui.button(surface, f"iap:{product['id']}", btn, store.price_text(product), theme.GREEN, size=40):
+                    self.app.confirm_purchase(product)
+            y += row_h + 12
         self.end_scroll(surface, ui, area)
 
     def draw_preview(self, surface, cos, rect):

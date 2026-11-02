@@ -13,7 +13,7 @@ import pygame
 
 from game.core.numformat import format_number
 from game.rendering import art, icons
-from game.rendering.draw import (darken, draw_text, lighten, panel, progress_bar, soft_glow)
+from game.rendering.draw import (darken, overlay, draw_text, lighten, panel, progress_bar, soft_glow)
 from game.ui import theme
 from game.ui.widgets import ScrollArea
 
@@ -138,7 +138,7 @@ class FactoryView:
             if la.t > 0.7:
                 la.phase, la.t = "liftoff", 0.0
                 self.app.audio.play("launch")
-                if effect == "effect_confetti":
+                if effect in ("effect_confetti", "effect_galaxy"):
                     ps.emit("confetti", PAD_X, base_y - 100, 60, spread=1.4, speed=700, life=1.8, size=16, gravity=600)
         elif la.phase == "liftoff":
             la.rocket_y = 120 * la.t ** 2 + 40 * la.t
@@ -146,7 +146,7 @@ class FactoryView:
             ps.emit("fire", PAD_X, ry - 8, 3, spread=0.25, speed=260, angle=math.pi / 2, life=0.35, size=36,
                     color=exhaust)
             ps.emit("smoke", PAD_X, ry + 10, 2, spread=0.4, speed=90, angle=math.pi / 2, life=1.6, size=30)
-            if effect == "effect_sparkle":
+            if effect in ("effect_sparkle", "effect_galaxy"):
                 ps.emit("sparkle", PAD_X, ry + 20, 3, spread=0.8, speed=160, angle=math.pi / 2, life=1.0, size=24)
             self.shake = max(self.shake, 0.25)
             if la.rocket_y > GROUND_Y + 600:
@@ -490,9 +490,9 @@ class FactoryView:
         else:
             self.draw_support(surface, fid, sy, plat_y, hat)
         if fid in self.flash:
-            glow = pygame.Surface((theme.WIDTH, h), pygame.SRCALPHA)
-            glow.fill((255, 255, 200, int(120 * self.flash[fid] / 0.5)))
-            surface.blit(glow, (0, sy))
+            level = int(self.flash[fid] / 0.5 * 6) * 20       # 6 cached brightness steps
+            if level > 0:
+                surface.blit(overlay((theme.WIDTH, h), (255, 255, 200, level)), (0, sy))
         # Manual mode hints
         if kind in ("producer", "transport", "assembly") and floor.manager_uid is None:
             if floor.manual_time > 0:
@@ -739,9 +739,7 @@ class FactoryView:
         factory = game.factory
         bg = art.floor_background(theme.WIDTH, h, (70, 72, 85), "locked")
         surface.blit(bg, (0, sy))
-        shade = pygame.Surface((theme.WIDTH - 160, h - 36), pygame.SRCALPHA)
-        shade.fill((10, 10, 20, 120))
-        surface.blit(shade, (150, sy + 18))
+        surface.blit(overlay((theme.WIDTH - 160, h - 36), (10, 10, 20, 120)), (150, sy + 18))
         for x in range(150, theme.WIDTH, 80):
             pygame.draw.polygon(surface, theme.YELLOW, [(x, sy + h - 30), (x + 40, sy + h - 30), (x + 20, sy + h - 18), (x - 20, sy + h - 18)])
         surface.blit(icons.icon("lock", 90), (190, sy + 60))

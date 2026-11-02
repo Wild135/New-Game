@@ -74,7 +74,7 @@
       "base_rate": 0.4,
       "base_cost": 200,
       "cost_growth": 1.15,
-      "unlock_cost": 1500,
+      "unlock_cost": 2500,
       "icon": "engine",
       "color": [
         250,
@@ -106,9 +106,9 @@
       "kind": "producer",
       "component": "electronics",
       "base_rate": 0.25,
-      "base_cost": 5000000.0,
+      "base_cost": 1000000.0,
       "cost_growth": 1.16,
-      "unlock_cost": 20000000.0,
+      "unlock_cost": 4000000.0,
       "icon": "chip",
       "color": [
         120,
@@ -123,9 +123,9 @@
       "kind": "producer",
       "component": "structure",
       "base_rate": 0.3,
-      "base_cost": 2000000000.0,
+      "base_cost": 800000000.0,
       "cost_growth": 1.165,
-      "unlock_cost": 10000000000.0,
+      "unlock_cost": 4000000000.0,
       "icon": "beam",
       "color": [
         200,

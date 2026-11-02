@@ -11,7 +11,7 @@ import random
 import pygame
 
 from game.rendering import icons
-from game.rendering.draw import LRU, darken, gradient_surface, lighten, mix, text_surface
+from game.rendering.draw import LRU, _fast, darken, gradient_surface, lighten, mix, text_surface
 from game.ui import theme
 
 O = theme.OUTLINE
@@ -21,7 +21,7 @@ _cache = LRU(300)
 def _cached(key, builder):
     surf = _cache.fetch(key)
     if surf is None:
-        surf = _cache.store(key, builder())
+        surf = _cache.store(key, _fast(builder()))
     return surf
 
 

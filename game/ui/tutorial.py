@@ -12,7 +12,7 @@ from typing import TYPE_CHECKING, Callable
 import pygame
 
 from game.rendering import icons
-from game.rendering.draw import draw_paragraph, panel
+from game.rendering.draw import dim_except, draw_paragraph, panel
 from game.ui import theme
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -160,12 +160,8 @@ class Tutorial:
         if step is None:
             return
         target = self.target_rect()
-        dim = pygame.Surface((theme.WIDTH, theme.HEIGHT), pygame.SRCALPHA)
-        dim.fill((0, 0, 20, 150 if step.button else 110))
-        if target is not None:
-            hole = target.inflate(24, 24)
-            pygame.draw.rect(dim, (0, 0, 0, 0), hole, border_radius=26)
-        surface.blit(dim, (0, 0))
+        hole = target.inflate(24, 24) if target is not None else None
+        dim_except(surface, (0, 0, 20, 150 if step.button else 110), hole)
         if target is not None:
             pulse = 6 + int(4 * math.sin(self.time * 6))
             pygame.draw.rect(surface, theme.YELLOW, target.inflate(24 + pulse, 24 + pulse), 6, border_radius=28)

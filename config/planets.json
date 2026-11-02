@@ -42,7 +42,7 @@
     {
       "id": "moon",
       "name": "Moon",
-      "unlock_cost": 100000000.0,
+      "unlock_cost": 50000000.0,
       "value_mult": 6,
       "cost_mult": 6,
       "special": "helium3",
@@ -82,7 +82,7 @@
     {
       "id": "mars",
       "name": "Mars",
-      "unlock_cost": 500000000000.0,
+      "unlock_cost": 200000000000.0,
       "value_mult": 45,
       "cost_mult": 45,
       "special": "martian_alloy",
@@ -123,7 +123,7 @@
     {
       "id": "europa",
       "name": "Europa",
-      "unlock_cost": 2000000000000000.0,
+      "unlock_cost": 200000000000000.0,
       "value_mult": 320,
       "cost_mult": 320,
       "special": "cryo_ice",
@@ -164,7 +164,7 @@
     {
       "id": "titan",
       "name": "Titan",
-      "unlock_cost": 1e+19,
+      "unlock_cost": 2e+17,
       "value_mult": 2400,
       "cost_mult": 2400,
       "special": "methane",
@@ -205,7 +205,7 @@
     {
       "id": "venus",
       "name": "Venus Cloud Stations",
-      "unlock_cost": 5e+22,
+      "unlock_cost": 2e+20,
       "value_mult": 18000,
       "cost_mult": 18000,
       "special": "cloud_gas",
@@ -246,7 +246,7 @@
     {
       "id": "asteroid",
       "name": "Asteroid Belt",
-      "unlock_cost": 2e+26,
+      "unlock_cost": 2e+21,
       "value_mult": 140000,
       "cost_mult": 140000,
       "special": "platinum",
@@ -287,7 +287,7 @@
     {
       "id": "kepler",
       "name": "Kepler Verdant",
-      "unlock_cost": 1e+30,
+      "unlock_cost": 1e+23,
       "value_mult": 1100000,
       "cost_mult": 1100000,
       "special": "bio_crystal",
@@ -328,7 +328,7 @@
     {
       "id": "deep_space",
       "name": "Deep Space Colony",
-      "unlock_cost": 5e+33,
+      "unlock_cost": 5e+24,
       "value_mult": 9000000,
       "cost_mult": 9000000,
       "special": "dark_matter",

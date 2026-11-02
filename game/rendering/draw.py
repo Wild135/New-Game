@@ -251,5 +251,41 @@ def progress_bar(surface: pygame.Surface, rect: pygame.Rect, fraction: float,
     pygame.draw.rect(surface, border, rect, 3, border_radius=radius)
 
 
+def overlay(size: tuple[int, int], color: Color) -> pygame.Surface:
+    """A cached translucent rectangle (dim layers, shades).  Never allocate these per frame."""
+    key = ("overlay", tuple(size), tuple(color))
+    surf = _shape_cache.fetch(key)
+    if surf is None:
+        surf = pygame.Surface(size, pygame.SRCALPHA)
+        surf.fill(color)
+        surf = _shape_cache.store(key, _fast(surf))
+    return surf
+
+
+def dim_except(surface: pygame.Surface, color: Color, hole: pygame.Rect | None = None) -> None:
+    """Dim the whole screen, optionally leaving a rectangular hole uncovered."""
+    w, h = surface.get_size()
+    dim = overlay((w, h), color)
+    if hole is None:
+        surface.blit(dim, (0, 0))
+        return
+    hole = hole.clip(pygame.Rect(0, 0, w, h))
+    for area in (pygame.Rect(0, 0, w, hole.top), pygame.Rect(0, hole.bottom, w, h - hole.bottom),
+                 pygame.Rect(0, hole.top, hole.left, hole.height),
+                 pygame.Rect(hole.right, hole.top, w - hole.right, hole.height)):
+        if area.width > 0 and area.height > 0:
+            surface.blit(dim, area.topleft, area)
+
+
+def _fast(surf: pygame.Surface) -> pygame.Surface:
+    """Convert to the display's pixel format (much faster to blit) when a window exists."""
+    if pygame.display.get_init() and pygame.display.get_surface() is not None:
+        try:
+            return surf.convert_alpha() if surf.get_flags() & pygame.SRCALPHA else surf.convert()
+        except pygame.error:
+            return surf
+    return surf
+
+
 def rotated(surface: pygame.Surface, angle: float) -> pygame.Surface:
     return pygame.transform.rotozoom(surface, angle, 1.0)

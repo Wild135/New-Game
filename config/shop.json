@@ -1,43 +1,382 @@
 {
   "_comment": "Simulated gem shop. No real money. Gems are earned through gameplay only.",
   "boosts": [
-    {"id": "turbo2", "name": "Turbo Income x2", "description": "Double all revenue for 30 minutes.", "cost": 25, "effect": {"stat": "value", "mult": 2.0, "duration": 1800}, "icon": "bolt"},
-    {"id": "turbo3", "name": "Mega Turbo x3", "description": "Triple all revenue for 1 hour.", "cost": 70, "effect": {"stat": "value", "mult": 3.0, "duration": 3600}, "icon": "bolt"},
-    {"id": "warp1", "name": "Time Warp 1h", "description": "Instantly receive 1 hour of automated income.", "cost": 40, "warp_hours": 1, "icon": "clock"},
-    {"id": "warp8", "name": "Time Warp 8h", "description": "Instantly receive 8 hours of automated income.", "cost": 250, "warp_hours": 8, "icon": "clock"},
-    {"id": "rp_grant", "name": "Research Grant", "description": "Receive 30 Research Points.", "cost": 30, "rp": 30, "icon": "flask"}
+    {
+      "id": "turbo2",
+      "name": "Turbo Income x2",
+      "description": "Double all revenue for 30 minutes.",
+      "cost": 25,
+      "effect": {
+        "stat": "value",
+        "mult": 2.0,
+        "duration": 1800
+      },
+      "icon": "bolt"
+    },
+    {
+      "id": "turbo3",
+      "name": "Mega Turbo x3",
+      "description": "Triple all revenue for 1 hour.",
+      "cost": 70,
+      "effect": {
+        "stat": "value",
+        "mult": 3.0,
+        "duration": 3600
+      },
+      "icon": "bolt"
+    },
+    {
+      "id": "warp1",
+      "name": "Time Warp 1h",
+      "description": "Instantly receive 1 hour of automated income.",
+      "cost": 40,
+      "warp_hours": 1,
+      "icon": "clock"
+    },
+    {
+      "id": "warp8",
+      "name": "Time Warp 8h",
+      "description": "Instantly receive 8 hours of automated income.",
+      "cost": 250,
+      "warp_hours": 8,
+      "icon": "clock"
+    },
+    {
+      "id": "rp_grant",
+      "name": "Research Grant",
+      "description": "Receive 30 Research Points.",
+      "cost": 30,
+      "rp": 30,
+      "icon": "flask"
+    },
+    {
+      "id": "ability_reset",
+      "name": "Manager Pep Talk",
+      "description": "Instantly finish every manager ability cooldown.",
+      "cost": 15,
+      "reset_abilities": true,
+      "icon": "manager"
+    }
   ],
   "cosmetics": [
-    {"id": "paint_classic", "slot": "paint", "name": "Classic Red", "cost": 0, "color": [225, 60, 60]},
-    {"id": "paint_ocean", "slot": "paint", "name": "Ocean Blue", "cost": 15, "color": [50, 130, 235]},
-    {"id": "paint_sunset", "slot": "paint", "name": "Sunset Orange", "cost": 15, "color": [250, 140, 40]},
-    {"id": "paint_royal", "slot": "paint", "name": "Royal Purple", "cost": 25, "color": [140, 70, 220]},
-    {"id": "paint_mint", "slot": "paint", "name": "Mint Green", "cost": 25, "color": [60, 200, 140]},
-    {"id": "paint_stealth", "slot": "paint", "name": "Stealth Black", "cost": 40, "color": [40, 40, 50]},
-    {"id": "paint_gold", "slot": "paint", "name": "Gold Chrome", "cost": 80, "color": [245, 195, 50]},
-    {"id": "decal_none", "slot": "decal", "name": "No Decal", "cost": 0},
-    {"id": "decal_stars", "slot": "decal", "name": "Star Field", "cost": 20},
-    {"id": "decal_stripes", "slot": "decal", "name": "Racing Stripes", "cost": 20},
-    {"id": "decal_bolt", "slot": "decal", "name": "Lightning Bolt", "cost": 30},
-    {"id": "exhaust_classic", "slot": "exhaust", "name": "Classic Flame", "cost": 0, "color": [255, 170, 40]},
-    {"id": "exhaust_plasma", "slot": "exhaust", "name": "Blue Plasma", "cost": 25, "color": [80, 170, 255]},
-    {"id": "exhaust_ion", "slot": "exhaust", "name": "Green Ion", "cost": 25, "color": [90, 255, 140]},
-    {"id": "exhaust_nebula", "slot": "exhaust", "name": "Pink Nebula", "cost": 35, "color": [255, 100, 200]},
-    {"id": "effect_smoke", "slot": "effect", "name": "Smoke Clouds", "cost": 0},
-    {"id": "effect_confetti", "slot": "effect", "name": "Confetti Party", "cost": 30},
-    {"id": "effect_sparkle", "slot": "effect", "name": "Rainbow Sparkles", "cost": 45},
-    {"id": "theme_classic", "slot": "theme", "name": "Classic Blue", "cost": 0, "color": [50, 90, 170]},
-    {"id": "theme_sunset", "slot": "theme", "name": "Sunset Industrial", "cost": 40, "color": [190, 100, 60]},
-    {"id": "theme_neon", "slot": "theme", "name": "Neon Night", "cost": 60, "color": [120, 50, 190]},
-    {"id": "theme_legacy", "slot": "theme", "name": "Legacy Gold", "cost": 0, "color": [200, 160, 40], "requires_legacy": "legacy_theme"},
-    {"id": "hat_yellow", "slot": "hat", "name": "Safety Yellow Hats", "cost": 0, "color": [250, 200, 40]},
-    {"id": "hat_gold", "slot": "hat", "name": "Golden Hard Hats", "cost": 50, "color": [255, 215, 90]},
-    {"id": "hat_white", "slot": "hat", "name": "Engineer White Hats", "cost": 20, "color": [245, 245, 250]}
+    {
+      "id": "paint_classic",
+      "slot": "paint",
+      "name": "Classic Red",
+      "cost": 0,
+      "color": [
+        225,
+        60,
+        60
+      ]
+    },
+    {
+      "id": "paint_ocean",
+      "slot": "paint",
+      "name": "Ocean Blue",
+      "cost": 15,
+      "color": [
+        50,
+        130,
+        235
+      ]
+    },
+    {
+      "id": "paint_sunset",
+      "slot": "paint",
+      "name": "Sunset Orange",
+      "cost": 15,
+      "color": [
+        250,
+        140,
+        40
+      ]
+    },
+    {
+      "id": "paint_royal",
+      "slot": "paint",
+      "name": "Royal Purple",
+      "cost": 25,
+      "color": [
+        140,
+        70,
+        220
+      ]
+    },
+    {
+      "id": "paint_mint",
+      "slot": "paint",
+      "name": "Mint Green",
+      "cost": 25,
+      "color": [
+        60,
+        200,
+        140
+      ]
+    },
+    {
+      "id": "paint_stealth",
+      "slot": "paint",
+      "name": "Stealth Black",
+      "cost": 40,
+      "color": [
+        40,
+        40,
+        50
+      ]
+    },
+    {
+      "id": "paint_gold",
+      "slot": "paint",
+      "name": "Gold Chrome",
+      "cost": 80,
+      "color": [
+        245,
+        195,
+        50
+      ]
+    },
+    {
+      "id": "decal_none",
+      "slot": "decal",
+      "name": "No Decal",
+      "cost": 0
+    },
+    {
+      "id": "decal_stars",
+      "slot": "decal",
+      "name": "Star Field",
+      "cost": 20
+    },
+    {
+      "id": "decal_stripes",
+      "slot": "decal",
+      "name": "Racing Stripes",
+      "cost": 20
+    },
+    {
+      "id": "decal_bolt",
+      "slot": "decal",
+      "name": "Lightning Bolt",
+      "cost": 30
+    },
+    {
+      "id": "exhaust_classic",
+      "slot": "exhaust",
+      "name": "Classic Flame",
+      "cost": 0,
+      "color": [
+        255,
+        170,
+        40
+      ]
+    },
+    {
+      "id": "exhaust_plasma",
+      "slot": "exhaust",
+      "name": "Blue Plasma",
+      "cost": 25,
+      "color": [
+        80,
+        170,
+        255
+      ]
+    },
+    {
+      "id": "exhaust_ion",
+      "slot": "exhaust",
+      "name": "Green Ion",
+      "cost": 25,
+      "color": [
+        90,
+        255,
+        140
+      ]
+    },
+    {
+      "id": "exhaust_nebula",
+      "slot": "exhaust",
+      "name": "Pink Nebula",
+      "cost": 35,
+      "color": [
+        255,
+        100,
+        200
+      ]
+    },
+    {
+      "id": "effect_smoke",
+      "slot": "effect",
+      "name": "Smoke Clouds",
+      "cost": 0
+    },
+    {
+      "id": "effect_confetti",
+      "slot": "effect",
+      "name": "Confetti Party",
+      "cost": 30
+    },
+    {
+      "id": "effect_sparkle",
+      "slot": "effect",
+      "name": "Rainbow Sparkles",
+      "cost": 45
+    },
+    {
+      "id": "theme_classic",
+      "slot": "theme",
+      "name": "Classic Blue",
+      "cost": 0,
+      "color": [
+        50,
+        90,
+        170
+      ]
+    },
+    {
+      "id": "theme_sunset",
+      "slot": "theme",
+      "name": "Sunset Industrial",
+      "cost": 40,
+      "color": [
+        190,
+        100,
+        60
+      ]
+    },
+    {
+      "id": "theme_neon",
+      "slot": "theme",
+      "name": "Neon Night",
+      "cost": 60,
+      "color": [
+        120,
+        50,
+        190
+      ]
+    },
+    {
+      "id": "theme_legacy",
+      "slot": "theme",
+      "name": "Legacy Gold",
+      "cost": 0,
+      "color": [
+        200,
+        160,
+        40
+      ],
+      "requires_legacy": "legacy_theme"
+    },
+    {
+      "id": "hat_yellow",
+      "slot": "hat",
+      "name": "Safety Yellow Hats",
+      "cost": 0,
+      "color": [
+        250,
+        200,
+        40
+      ]
+    },
+    {
+      "id": "hat_gold",
+      "slot": "hat",
+      "name": "Golden Hard Hats",
+      "cost": 50,
+      "color": [
+        255,
+        215,
+        90
+      ]
+    },
+    {
+      "id": "hat_white",
+      "slot": "hat",
+      "name": "Engineer White Hats",
+      "cost": 20,
+      "color": [
+        245,
+        245,
+        250
+      ]
+    },
+    {
+      "id": "paint_galaxy",
+      "slot": "paint",
+      "name": "Galaxy Swirl",
+      "cost": 0,
+      "color": [
+        90,
+        60,
+        200
+      ],
+      "store_only": "galaxy_bundle"
+    },
+    {
+      "id": "exhaust_galaxy",
+      "slot": "exhaust",
+      "name": "Starfire Exhaust",
+      "cost": 0,
+      "color": [
+        200,
+        120,
+        255
+      ],
+      "store_only": "galaxy_bundle"
+    },
+    {
+      "id": "effect_galaxy",
+      "slot": "effect",
+      "name": "Supernova Launch",
+      "cost": 0,
+      "store_only": "galaxy_bundle"
+    }
   ],
   "workforce": [
-    {"id": "hiring", "name": "Hire More Workers", "description": "+10% speed on every floor per level.", "stat": "all", "per_level": 0.10, "base_cost": 300, "cost_growth": 1.9, "max_level": 30, "icon": "manager"},
-    {"id": "training", "name": "Worker Training", "description": "+12% transport and assembly speed per level.", "stat": "logistics", "per_level": 0.12, "base_cost": 800, "cost_growth": 2.0, "max_level": 30, "icon": "wrench"},
-    {"id": "tools", "name": "Better Tools", "description": "+8% rocket value per level.", "stat": "value", "per_level": 0.08, "base_cost": 1500, "cost_growth": 2.1, "max_level": 30, "icon": "gear"},
-    {"id": "carts", "name": "Bigger Carts", "description": "+25% storage capacity per level.", "stat": "storage", "per_level": 0.25, "base_cost": 500, "cost_growth": 1.8, "max_level": 20, "icon": "crate"}
-  ]
+    {
+      "id": "hiring",
+      "name": "Hire More Workers",
+      "description": "+10% speed on every floor per level.",
+      "stat": "all",
+      "per_level": 0.1,
+      "base_cost": 300,
+      "cost_growth": 1.9,
+      "max_level": 30,
+      "icon": "manager"
+    },
+    {
+      "id": "training",
+      "name": "Worker Training",
+      "description": "+12% transport and assembly speed per level.",
+      "stat": "logistics",
+      "per_level": 0.12,
+      "base_cost": 800,
+      "cost_growth": 2.0,
+      "max_level": 30,
+      "icon": "wrench"
+    },
+    {
+      "id": "tools",
+      "name": "Better Tools",
+      "description": "+8% rocket value per level.",
+      "stat": "value",
+      "per_level": 0.08,
+      "base_cost": 1500,
+      "cost_growth": 2.1,
+      "max_level": 30,
+      "icon": "gear"
+    },
+    {
+      "id": "carts",
+      "name": "Bigger Carts",
+      "description": "+25% storage capacity per level.",
+      "stat": "storage",
+      "per_level": 0.25,
+      "base_cost": 500,
+      "cost_growth": 1.8,
+      "max_level": 20,
+      "icon": "crate"
+    }
+  ],
+  "offline_double_cost": 20
 }

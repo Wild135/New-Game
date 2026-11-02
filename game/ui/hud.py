@@ -77,7 +77,7 @@ class HUD:
                 if target == "research":
                     self.app.open("research")
                 elif target == "shop_free":
-                    self.app.open("shop", tab=2)
+                    self.app.open("shop", tab=3 if game.store.enabled else 2)
                 else:
                     self.app.open("shop", tab=0)
 
@@ -199,8 +199,9 @@ class HUD:
         return any(game.research.state(r["id"]) == "available" and game.rp >= r["cost"]
                    for r in game.config.research_list)
 
-    def draw_toasts(self, surface: pygame.Surface) -> None:
-        y = theme.HEIGHT - theme.NAV_H - 190 - 80 * (len(self.toasts) - 1)
+    def draw_toasts(self, surface: pygame.Surface, menu_open: bool = False) -> None:
+        # Over the factory: above the bottom bar. With a menu open: over the top bar so buttons stay visible.
+        y = 24 if menu_open else theme.HEIGHT - theme.NAV_H - 190 - 80 * (len(self.toasts) - 1)
         for t in self.toasts:
             alpha = min(1.0, t["life"] / 0.4)
             font_size = 36

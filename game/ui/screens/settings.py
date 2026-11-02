@@ -218,11 +218,19 @@ class OfflineScreen(Screen):
         if report.capped:
             draw_text(surface, "Research 'Extended Shifts' to stay away longer!", (content.centerx, y + 170), 26,
                       theme.TEXT_DIM, anchor="midtop", kind="body")
-        btn = pygame.Rect(content.centerx - 220, content.bottom - 130, 440, 116)
-        if ui.button(surface, "collect_offline", btn, "Collect", theme.GREEN, size=50):
+        cost = game.offline_double_cost()
+        btn = pygame.Rect(content.x + 10, content.bottom - 130, content.width // 2 - 20, 116)
+        btn2 = pygame.Rect(content.centerx + 10, content.bottom - 130, content.width // 2 - 20, 116)
+        collected = None
+        if ui.button(surface, "collect_offline", btn, "Collect", theme.GREEN, size=46):
             collected = game.collect_offline()
-            if collected:
-                self.app.audio.play("coin")
-                self.app.particles.emit("coin", btn.centerx, btn.centery, 30, spread=math.pi, speed=700, life=1.2,
-                                        size=44, gravity=900, screen=True)
+        if ui.button(surface, "collect_offline_x2", btn2, "Collect x2", theme.PURPLE if game.gems >= cost else theme.GREY,
+                     size=40, sublabel=f"{cost} gems"):
+            collected = game.collect_offline_doubled()
+            if collected is None:
+                self.app.audio.play("error")
+        if collected:
+            self.app.audio.play("coin")
+            self.app.particles.emit("coin", content.centerx, btn.centery, 30, spread=math.pi, speed=700, life=1.2,
+                                    size=44, gravity=900, screen=True)
             self.close()

@@ -20,7 +20,7 @@ class ShopSystem:
         self.game = game
         self.cfg = game.config
         self.owned: set[str] = {c["id"] for c in self.cfg.cosmetic_list
-                                if c["cost"] == 0 and not c.get("requires_legacy")}
+                                if c["cost"] == 0 and not c.get("requires_legacy") and not c.get("store_only")}
         self.equipped: dict[str, str] = {}
         for cos in self.cfg.cosmetic_list:
             if cos["id"] in self.owned and cos["slot"] not in self.equipped:
@@ -40,6 +40,9 @@ class ShopSystem:
             return self.equip(cos_id)
         if cos.get("requires_legacy"):
             self.game.toast("Unlock this with a Legacy upgrade")
+            return False
+        if cos.get("store_only"):
+            self.game.toast("Exclusive item - available in the Store")
             return False
         if not self.game.spend_gems(cos["cost"]):
             self.game.toast("Not enough gems")
@@ -76,6 +79,16 @@ class ShopSystem:
             amount = income * boost["warp_hours"] * 3600
             self.game.earn(amount)
             self.game.emit("time_warp", amount=amount)
+            return True
+        if boost.get("reset_abilities"):
+            waiting = [m for m in self.game.managers.instances if m.cooldown > 0]
+            if not waiting:
+                self.game.toast("No abilities are cooling down")
+                return False
+            self.game.spend_gems(boost["cost"])
+            for inst in waiting:
+                inst.cooldown = 0.0
+            self.game.emit("purchase", id=boost_id)
             return True
         self.game.spend_gems(boost["cost"])
         if "rp" in boost:

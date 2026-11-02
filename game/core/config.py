@@ -45,6 +45,10 @@ def _positive(value: Any, label: str, allow_zero: bool = False) -> None:
         raise ConfigError(f"{label} must be {'>= 0' if allow_zero else '> 0'}, got {value}")
 
 
+def raw_products(raw: dict) -> list[dict]:
+    return raw.get("store", {}).get("products", [])
+
+
 class GameConfig:
     """All configuration in one object."""
 
@@ -54,6 +58,8 @@ class GameConfig:
         for name in ("economy", "floors", "rockets", "planets", "managers", "research",
                      "missions", "achievements", "prestige", "shop"):
             raw[name] = _load_json(self.dir / f"{name}.json")
+        store_file = self.dir / "store.json"
+        raw["store"] = _load_json(store_file) if store_file.exists() else {"enabled": False, "products": []}
         if overrides:
             for name, data in overrides.items():
                 raw[name] = data
@@ -160,6 +166,12 @@ class GameConfig:
             for req in research.get("requires", []):
                 if req not in self.research:
                     raise ConfigError(f"{label} requires unknown research {req!r}")
+        for product in raw_products(self.raw):
+            _positive(product.get("price"), f"store product '{product.get('id')}'.price")
+            if not isinstance(product.get("grant"), dict):
+                raise ConfigError(f"store product '{product.get('id')}' needs a 'grant'")
+            if product["grant"].get("manager") and product["grant"]["manager"] not in self.managers:
+                raise ConfigError(f"store product '{product['id']}' grants unknown manager")
         for mission in self.main_missions:
             _positive(mission.get("target"), f"mission '{mission['id']}'.target")
         for ach in self.achievement_list:

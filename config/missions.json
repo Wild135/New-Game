@@ -1,45 +1,481 @@
 {
   "_comment": "Missions. type 'stat' compares a lifetime statistic; 'floor_level' needs any factory floor at a level; 'planet' needs a planet unlocked; 'rocket' needs a rocket unlocked. Reward keys: gems, rp, credits_minutes (minutes of current income, minimum credits_min).",
   "main": [
-    {"id": "m1", "text": "Launch your first rocket", "type": "stat", "stat": "rockets_launched", "target": 1, "reward": {"gems": 5}},
-    {"id": "m2", "text": "Upgrade any floor 3 times", "type": "stat", "stat": "upgrades_bought", "target": 3, "reward": {"credits": 60}},
-    {"id": "m3", "text": "Hire a manager", "type": "stat", "stat": "managers_hired", "target": 1, "reward": {"rp": 10}},
-    {"id": "m4", "text": "Launch 10 Rockets", "type": "stat", "stat": "rockets_launched", "target": 10, "reward": {"rp": 10}},
-    {"id": "m5", "text": "Automate 4 stations", "type": "stat", "stat": "managers_hired", "target": 4, "reward": {"gems": 10}},
-    {"id": "m6", "text": "Complete a research", "type": "stat", "stat": "research_done", "target": 1, "reward": {"gems": 5}},
-    {"id": "m7", "text": "Reach Parts Production Lv. 10", "type": "floor_level", "floor": "parts", "target": 10, "reward": {"rp": 15}},
-    {"id": "m8", "text": "Unlock Engine Manufacturing", "type": "stat", "stat": "floors_unlocked", "target": 1, "reward": {"gems": 10}},
-    {"id": "m9", "text": "Unlock the Explorer I", "type": "rocket", "rocket": "explorer", "target": 1, "reward": {"rp": 25}},
-    {"id": "m10", "text": "Earn $100K in total", "type": "stat", "stat": "total_earned", "target": 100000, "reward": {"gems": 15}},
-    {"id": "m11", "text": "Launch 500 Rockets", "type": "stat", "stat": "rockets_launched", "target": 500, "reward": {"rp": 40}},
-    {"id": "m12", "text": "Unlock Fuel Systems", "type": "stat", "stat": "floors_unlocked", "target": 2, "reward": {"gems": 15}},
-    {"id": "m13", "text": "Unlock the Kestrel", "type": "rocket", "rocket": "kestrel", "target": 1, "reward": {"rp": 60}},
-    {"id": "m14", "text": "Reach any floor Lv. 50", "type": "floor_level", "floor": null, "target": 50, "reward": {"gems": 20}},
-    {"id": "m15", "text": "Unlock the Moon", "type": "planet", "planet": "moon", "target": 1, "reward": {"gems": 30, "rp": 100}},
-    {"id": "m16", "text": "Complete 8 research projects", "type": "stat", "stat": "research_done", "target": 8, "reward": {"gems": 20}},
-    {"id": "m17", "text": "Unlock the Lunar Explorer", "type": "rocket", "rocket": "lunar_explorer", "target": 1, "reward": {"rp": 150}},
-    {"id": "m18", "text": "Unlock the Heavy Lifter", "type": "rocket", "rocket": "heavy_lifter", "target": 1, "reward": {"gems": 25}},
-    {"id": "m19", "text": "Earn $1B in total", "type": "stat", "stat": "total_earned", "target": 1000000000, "reward": {"gems": 40}},
-    {"id": "m20", "text": "Unlock Mars", "type": "planet", "planet": "mars", "target": 1, "reward": {"gems": 50, "rp": 400}},
-    {"id": "m21", "text": "Perform a Space Legacy reset", "type": "stat", "stat": "prestiges", "target": 1, "reward": {"gems": 60}},
-    {"id": "m22", "text": "Reach any floor Lv. 150", "type": "floor_level", "floor": null, "target": 150, "reward": {"gems": 40}},
-    {"id": "m23", "text": "Unlock the Orbital Cruiser", "type": "rocket", "rocket": "orbital_cruiser", "target": 1, "reward": {"rp": 1000}},
-    {"id": "m24", "text": "Unlock Europa", "type": "planet", "planet": "europa", "target": 1, "reward": {"gems": 80}},
-    {"id": "m25", "text": "Launch 1M Rockets", "type": "stat", "stat": "rockets_launched", "target": 1000000, "reward": {"gems": 80}},
-    {"id": "m26", "text": "Unlock Titan", "type": "planet", "planet": "titan", "target": 1, "reward": {"gems": 100}},
-    {"id": "m27", "text": "Unlock Venus Cloud Stations", "type": "planet", "planet": "venus", "target": 1, "reward": {"gems": 120}},
-    {"id": "m28", "text": "Unlock the Asteroid Belt", "type": "planet", "planet": "asteroid", "target": 1, "reward": {"gems": 150}},
-    {"id": "m29", "text": "Unlock Kepler Verdant", "type": "planet", "planet": "kepler", "target": 1, "reward": {"gems": 200}},
-    {"id": "m30", "text": "Unlock the Deep Space Colony", "type": "planet", "planet": "deep_space", "target": 1, "reward": {"gems": 300}},
-    {"id": "m31", "text": "Build the Quantum Starship", "type": "rocket", "rocket": "quantum_starship", "target": 1, "reward": {"gems": 500}}
+    {
+      "id": "m1",
+      "text": "Launch your first rocket",
+      "type": "stat",
+      "stat": "rockets_launched",
+      "target": 1,
+      "reward": {
+        "gems": 5
+      }
+    },
+    {
+      "id": "m2",
+      "text": "Upgrade any floor 3 times",
+      "type": "stat",
+      "stat": "upgrades_bought",
+      "target": 3,
+      "reward": {
+        "credits": 60
+      }
+    },
+    {
+      "id": "m3",
+      "text": "Hire a manager",
+      "type": "stat",
+      "stat": "managers_hired",
+      "target": 1,
+      "reward": {
+        "rp": 10
+      }
+    },
+    {
+      "id": "m4",
+      "text": "Launch 10 Rockets",
+      "type": "stat",
+      "stat": "rockets_launched",
+      "target": 10,
+      "reward": {
+        "rp": 10
+      }
+    },
+    {
+      "id": "m5",
+      "text": "Automate 4 stations",
+      "type": "stat",
+      "stat": "managers_hired",
+      "target": 4,
+      "reward": {
+        "gems": 10
+      }
+    },
+    {
+      "id": "m6",
+      "text": "Complete a research",
+      "type": "stat",
+      "stat": "research_done",
+      "target": 1,
+      "reward": {
+        "gems": 5
+      }
+    },
+    {
+      "id": "m7",
+      "text": "Reach Parts Production Lv. 10",
+      "type": "floor_level",
+      "floor": "parts",
+      "target": 10,
+      "reward": {
+        "rp": 15
+      }
+    },
+    {
+      "id": "m8",
+      "text": "Unlock Engine Manufacturing",
+      "type": "stat",
+      "stat": "floors_unlocked",
+      "target": 1,
+      "reward": {
+        "gems": 10
+      }
+    },
+    {
+      "id": "m9",
+      "text": "Unlock the Explorer I",
+      "type": "rocket",
+      "rocket": "explorer",
+      "target": 1,
+      "reward": {
+        "rp": 25
+      }
+    },
+    {
+      "id": "m10",
+      "text": "Earn $100K in total",
+      "type": "stat",
+      "stat": "total_earned",
+      "target": 100000,
+      "reward": {
+        "gems": 15
+      }
+    },
+    {
+      "id": "m11",
+      "text": "Launch 500 Rockets",
+      "type": "stat",
+      "stat": "rockets_launched",
+      "target": 500,
+      "reward": {
+        "rp": 40
+      }
+    },
+    {
+      "id": "m12",
+      "text": "Unlock Fuel Systems",
+      "type": "stat",
+      "stat": "floors_unlocked",
+      "target": 2,
+      "reward": {
+        "gems": 15
+      }
+    },
+    {
+      "id": "m13",
+      "text": "Unlock the Kestrel",
+      "type": "rocket",
+      "rocket": "kestrel",
+      "target": 1,
+      "reward": {
+        "rp": 60
+      }
+    },
+    {
+      "id": "m13a",
+      "text": "Reach Engine Manufacturing Lv. 50",
+      "type": "floor_level",
+      "floor": "engines",
+      "target": 50,
+      "reward": {
+        "gems": 15
+      }
+    },
+    {
+      "id": "m13b",
+      "text": "Hire 6 managers",
+      "type": "stat",
+      "stat": "managers_hired",
+      "target": 6,
+      "reward": {
+        "rp": 50
+      }
+    },
+    {
+      "id": "m13c",
+      "text": "Earn $10M in total",
+      "type": "stat",
+      "stat": "total_earned",
+      "target": 10000000.0,
+      "reward": {
+        "gems": 15
+      }
+    },
+    {
+      "id": "m13d",
+      "text": "Use 10 manager abilities",
+      "type": "stat",
+      "stat": "abilities_used",
+      "target": 10,
+      "reward": {
+        "credits_minutes": 15
+      }
+    },
+    {
+      "id": "m13e",
+      "text": "Unlock Navigation Electronics",
+      "type": "stat",
+      "stat": "floors_unlocked",
+      "target": 3,
+      "reward": {
+        "gems": 20
+      }
+    },
+    {
+      "id": "m13f",
+      "text": "Reach any floor Lv. 100",
+      "type": "floor_level",
+      "floor": null,
+      "target": 100,
+      "reward": {
+        "gems": 20
+      }
+    },
+    {
+      "id": "m15",
+      "text": "Unlock the Moon",
+      "type": "planet",
+      "planet": "moon",
+      "target": 1,
+      "reward": {
+        "gems": 30,
+        "rp": 100
+      }
+    },
+    {
+      "id": "m16",
+      "text": "Complete 8 research projects",
+      "type": "stat",
+      "stat": "research_done",
+      "target": 8,
+      "reward": {
+        "gems": 20
+      }
+    },
+    {
+      "id": "m17",
+      "text": "Unlock the Lunar Explorer",
+      "type": "rocket",
+      "rocket": "lunar_explorer",
+      "target": 1,
+      "reward": {
+        "rp": 150
+      }
+    },
+    {
+      "id": "m18",
+      "text": "Unlock the Heavy Lifter",
+      "type": "rocket",
+      "rocket": "heavy_lifter",
+      "target": 1,
+      "reward": {
+        "gems": 25
+      }
+    },
+    {
+      "id": "m19",
+      "text": "Earn $1B in total",
+      "type": "stat",
+      "stat": "total_earned",
+      "target": 1000000000,
+      "reward": {
+        "gems": 40
+      }
+    },
+    {
+      "id": "m19a",
+      "text": "Unlock the Robotics Department",
+      "type": "stat",
+      "stat": "floors_unlocked",
+      "target": 5,
+      "reward": {
+        "rp": 200
+      }
+    },
+    {
+      "id": "m19b",
+      "text": "Launch 100K rockets",
+      "type": "stat",
+      "stat": "rockets_launched",
+      "target": 100000,
+      "reward": {
+        "gems": 30
+      }
+    },
+    {
+      "id": "m20",
+      "text": "Unlock Mars",
+      "type": "planet",
+      "planet": "mars",
+      "target": 1,
+      "reward": {
+        "gems": 50,
+        "rp": 400
+      }
+    },
+    {
+      "id": "m21",
+      "text": "Perform a Space Legacy reset",
+      "type": "stat",
+      "stat": "prestiges",
+      "target": 1,
+      "reward": {
+        "gems": 60
+      }
+    },
+    {
+      "id": "m22",
+      "text": "Reach any floor Lv. 150",
+      "type": "floor_level",
+      "floor": null,
+      "target": 150,
+      "reward": {
+        "gems": 40
+      }
+    },
+    {
+      "id": "m23",
+      "text": "Unlock the Orbital Cruiser",
+      "type": "rocket",
+      "rocket": "orbital_cruiser",
+      "target": 1,
+      "reward": {
+        "rp": 1000
+      }
+    },
+    {
+      "id": "m24",
+      "text": "Unlock Europa",
+      "type": "planet",
+      "planet": "europa",
+      "target": 1,
+      "reward": {
+        "gems": 80
+      }
+    },
+    {
+      "id": "m25",
+      "text": "Launch 1M Rockets",
+      "type": "stat",
+      "stat": "rockets_launched",
+      "target": 1000000,
+      "reward": {
+        "gems": 80
+      }
+    },
+    {
+      "id": "m26",
+      "text": "Unlock Titan",
+      "type": "planet",
+      "planet": "titan",
+      "target": 1,
+      "reward": {
+        "gems": 100
+      }
+    },
+    {
+      "id": "m27",
+      "text": "Unlock Venus Cloud Stations",
+      "type": "planet",
+      "planet": "venus",
+      "target": 1,
+      "reward": {
+        "gems": 120
+      }
+    },
+    {
+      "id": "m28",
+      "text": "Unlock the Asteroid Belt",
+      "type": "planet",
+      "planet": "asteroid",
+      "target": 1,
+      "reward": {
+        "gems": 150
+      }
+    },
+    {
+      "id": "m29",
+      "text": "Unlock Kepler Verdant",
+      "type": "planet",
+      "planet": "kepler",
+      "target": 1,
+      "reward": {
+        "gems": 200
+      }
+    },
+    {
+      "id": "m30",
+      "text": "Unlock the Deep Space Colony",
+      "type": "planet",
+      "planet": "deep_space",
+      "target": 1,
+      "reward": {
+        "gems": 300
+      }
+    },
+    {
+      "id": "m31",
+      "text": "Build the Quantum Starship",
+      "type": "rocket",
+      "rocket": "quantum_starship",
+      "target": 1,
+      "reward": {
+        "gems": 500
+      }
+    }
   ],
   "daily_pool": [
-    {"id": "d_launch", "text": "Launch {n} rockets today", "stat": "rockets_launched", "targets": [25, 50, 100], "reward": {"gems": 5}},
-    {"id": "d_upgrade", "text": "Buy {n} upgrades today", "stat": "upgrades_bought", "targets": [10, 25, 40], "reward": {"gems": 5}},
-    {"id": "d_ability", "text": "Use {n} manager abilities", "stat": "abilities_used", "targets": [2, 4, 6], "reward": {"rp": 15}},
-    {"id": "d_taps", "text": "Tap your floors {n} times", "stat": "taps", "targets": [20, 40, 60], "reward": {"credits_minutes": 10}},
-    {"id": "d_launches_big", "text": "Launch {n} rockets today", "stat": "rockets_launched", "targets": [300, 600, 1000], "reward": {"rp": 30}},
-    {"id": "d_research", "text": "Complete {n} research project", "stat": "research_done", "targets": [1, 1, 2], "reward": {"gems": 8}},
-    {"id": "d_minutes", "text": "Play for {n} minutes", "stat": "seconds_played", "targets": [300, 600, 900], "display_div": 60, "reward": {"gems": 5}}
+    {
+      "id": "d_launch",
+      "text": "Launch {n} rockets today",
+      "stat": "rockets_launched",
+      "targets": [
+        25,
+        50,
+        100
+      ],
+      "reward": {
+        "gems": 5
+      }
+    },
+    {
+      "id": "d_upgrade",
+      "text": "Buy {n} upgrades today",
+      "stat": "upgrades_bought",
+      "targets": [
+        10,
+        25,
+        40
+      ],
+      "reward": {
+        "gems": 5
+      }
+    },
+    {
+      "id": "d_ability",
+      "text": "Use {n} manager abilities",
+      "stat": "abilities_used",
+      "targets": [
+        2,
+        4,
+        6
+      ],
+      "reward": {
+        "rp": 15
+      }
+    },
+    {
+      "id": "d_taps",
+      "text": "Tap your floors {n} times",
+      "stat": "taps",
+      "targets": [
+        20,
+        40,
+        60
+      ],
+      "reward": {
+        "credits_minutes": 10
+      }
+    },
+    {
+      "id": "d_launches_big",
+      "text": "Launch {n} rockets today",
+      "stat": "rockets_launched",
+      "targets": [
+        300,
+        600,
+        1000
+      ],
+      "reward": {
+        "rp": 30
+      }
+    },
+    {
+      "id": "d_research",
+      "text": "Complete {n} research project",
+      "stat": "research_done",
+      "targets": [
+        1,
+        1,
+        2
+      ],
+      "reward": {
+        "gems": 8
+      }
+    },
+    {
+      "id": "d_minutes",
+      "text": "Play for {n} minutes",
+      "stat": "seconds_played",
+      "targets": [
+        300,
+        600,
+        900
+      ],
+      "display_div": 60,
+      "reward": {
+        "gems": 5
+      }
+    }
   ]
 }

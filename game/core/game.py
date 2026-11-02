@@ -21,6 +21,7 @@ from game.missions.mission_system import MissionSystem
 from game.prestige.prestige_system import PrestigeSystem
 from game.research.research_system import ResearchSystem
 from game.shop.shop_system import ShopSystem
+from game.shop.store import Store
 
 STAT_KEYS = ["rockets_launched", "total_earned", "upgrades_bought", "managers_hired",
              "research_done", "planets_unlocked", "prestiges", "floors_unlocked",
@@ -89,6 +90,7 @@ class Game:
         self.prestige = PrestigeSystem(self)
         self.missions = MissionSystem(self)
         self.shop = ShopSystem(self)
+        self.store = Store(self)
         self.global_mods_cached = Modifiers()
         self.stats_cache: dict[str, FactoryStats] = {}
         self._accumulator = 0.0
@@ -149,7 +151,7 @@ class Game:
 
     # ------------------------------------------------------------------ modifiers
     def global_modifiers(self, include_temporary: bool = True) -> Modifiers:
-        mods = self.research.modifiers().merged(self.prestige.modifiers())
+        mods = self.research.modifiers().merged(self.prestige.modifiers()).merged(self.store.modifiers())
         if include_temporary:
             mods = mods.merged(self.shop.modifiers())
         return mods
@@ -171,8 +173,9 @@ class Game:
 
     def refresh_stats(self) -> None:
         self.global_mods_cached = self.global_modifiers(True)
-        for pid in self.factories:
-            self.stats_cache[pid] = self.factory_stats(pid, global_mods=self.global_mods_cached)
+        # Rebuild from scratch so factories removed by a prestige reset disappear too.
+        self.stats_cache = {pid: self.factory_stats(pid, global_mods=self.global_mods_cached)
+                            for pid in self.factories}
 
     def total_income(self) -> float:
         return sum(s.income_per_second for s in self.stats_cache.values())
@@ -365,6 +368,18 @@ class Game:
         self.emit("rocket_unlocked", rocket=rocket_id)
         return True
 
+    def projected_income(self, rocket_id: str, planet_id: str | None = None) -> float:
+        """Income per second this factory would make if it built ``rocket_id`` (at current levels)."""
+        factory = self.factories[planet_id or self.current_planet]
+        if not factory.can_build(rocket_id)[0]:
+            return 0.0
+        original = factory.rocket_id
+        factory.rocket_id = rocket_id
+        try:
+            return self.factory_stats(factory.planet_id, global_mods=self.global_mods_cached).income_per_second
+        finally:
+            factory.rocket_id = original
+
     def select_rocket(self, rocket_id: str, planet_id: str | None = None) -> bool:
         factory = self.factories[planet_id or self.current_planet]
         if rocket_id not in self.unlocked_rockets:
@@ -487,6 +502,18 @@ class Game:
         self.emit("offline_collected", money=report.money * multiplier)
         return report
 
+    def offline_double_cost(self) -> int:
+        return int(self.config.raw["shop"].get("offline_double_cost", 20))
+
+    def collect_offline_doubled(self) -> OfflineReport | None:
+        """Pay gems to collect the offline money twice."""
+        if self.pending_offline is None:
+            return None
+        if not self.spend_gems(self.offline_double_cost()):
+            self.toast("Not enough gems")
+            return None
+        return self.collect_offline(multiplier=2.0)
+
     def touch(self, now: float) -> None:
         """Record that the player is active right now (called by the app/autosave)."""
         if now > self.last_seen:
@@ -519,7 +546,7 @@ class Game:
             "pending_offline": self.pending_offline.to_dict() if self.pending_offline else None,
             "managers": self.managers.to_dict(), "research": self.research.to_dict(),
             "prestige": self.prestige.to_dict(), "missions": self.missions.to_dict(),
-            "shop": self.shop.to_dict(),
+            "shop": self.shop.to_dict(), "store": self.store.to_dict(),
         }
 
     @classmethod
@@ -563,6 +590,7 @@ class Game:
         game.prestige.load(data.get("prestige", {}))
         game.missions.load(data.get("missions", {}))
         game.shop.load(data.get("shop", {}))
+        game.store.load(data.get("store", {}))
         # Repair references between managers and floors.
         for factory in game.factories.values():
             for floor in factory.floors.values():

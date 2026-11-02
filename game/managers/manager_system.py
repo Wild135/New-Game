@@ -117,6 +117,19 @@ class ManagerSystem:
         self.game.emit("manager_hired", uid=inst.uid)
         return inst
 
+    def grant(self, def_id: str) -> ManagerInstance | None:
+        """Add a manager for free (store packs, rewards)."""
+        mdef = self.cfg.managers.get(def_id)
+        if mdef is None or (mdef.get("unique") and self.hired_count(def_id=def_id) > 0):
+            return None
+        surname = self.cfg.surnames[(self.next_uid * 7 + len(def_id)) % len(self.cfg.surnames)]
+        inst = ManagerInstance(uid=f"m{self.next_uid}", def_id=def_id, surname=surname)
+        self.next_uid += 1
+        self.instances.append(inst)
+        self.game.stats["managers_hired"] += 1
+        self.game.emit("manager_hired", uid=inst.uid)
+        return inst
+
     def fits(self, inst_or_def: ManagerInstance | str, floor_kind: str) -> bool:
         def_id = inst_or_def if isinstance(inst_or_def, str) else inst_or_def.def_id
         slot = self.cfg.managers[def_id]["slot"]

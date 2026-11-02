@@ -46,12 +46,19 @@ class ScrollArea:
         self.view = pygame.Rect(0, 0, 0, 0)
         self.dragging = False
         self._last_y = 0.0
+        self.target: float | None = None   # smooth animated scroll destination
 
     def max_offset(self) -> float:
         return max(0.0, self.content_height - self.view.height)
 
     def scroll_to(self, y: float) -> None:
         self.offset = max(0.0, min(self.max_offset(), y))
+        self.velocity = 0.0
+        self.target = None
+
+    def glide_to(self, y: float) -> None:
+        """Scroll smoothly instead of jumping."""
+        self.target = y
         self.velocity = 0.0
 
     def update(self, ui: "UI", view: pygame.Rect, content_height: float, dt: float) -> None:
@@ -73,7 +80,14 @@ class ScrollArea:
             if p.wheel and self.view.collidepoint(p.pos):
                 self.velocity = 0
                 self.offset -= p.wheel * 90
-        if not self.dragging:
+        if self.dragging or (p.wheel and ui.enabled):
+            self.target = None
+        if self.target is not None and not self.dragging:
+            goal = max(0.0, min(self.max_offset(), self.target))
+            self.offset += (goal - self.offset) * min(1.0, dt * 6)
+            if abs(goal - self.offset) < 1:
+                self.offset, self.target = goal, None
+        elif not self.dragging:
             self.offset += self.velocity * dt
             self.velocity *= max(0.0, 1 - 5 * dt)
             if abs(self.velocity) < 5:

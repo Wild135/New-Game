@@ -32,7 +32,7 @@ class RocketsScreen(Screen):
     def draw_fleet(self, surface, ui, area, dt):
         game = self.game
         rockets = game.config.rocket_list
-        row_h = 250
+        row_h = 285
         y = self.begin_scroll(surface, ui, area, len(rockets) * (row_h + 12) + 20, dt)
         factory = game.factory
         for rdef in rockets:
@@ -55,6 +55,12 @@ class RocketsScreen(Screen):
                     if not rdef.get("planet") or rdef["planet"] == game.current_planet else \
                     ", ".join(f"{int(v)} {c}" for c, v in rdef["recipe"].items())
                 draw_paragraph(surface, "Needs: " + parts, pygame.Rect(r.x + 210, r.y + 102, r.width - 470, 80), 26)
+                if unlocked and factory.can_build(rid)[0]:
+                    now_inc = game.stats_cache[game.current_planet].income_per_second
+                    proj = now_inc if selected else game.projected_income(rid)
+                    color = theme.GREEN_LIGHT if proj >= now_inc * 0.999 else theme.RED
+                    draw_text(surface, f"Est. income: {game.describe_money(proj)}/s", (r.x + 210, r.bottom - 84), 26,
+                              color, outline=2, max_width=r.width - 470)
                 if rdef.get("bonus"):
                     draw_text(surface, rdef["description"].split("Bonus:")[-1].strip() if "Bonus" in rdef["description"] else "",
                               (r.x + 210, r.bottom - 44), 26, theme.GREEN_LIGHT, kind="body", max_width=r.width - 470)

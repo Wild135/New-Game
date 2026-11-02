@@ -60,7 +60,7 @@ class Bot:
         self.buy_stuff(now)
         if self.allow_prestige:
             stars = g.prestige.estimated_stars()
-            if stars >= max(10, g.prestige.total_stars * 1.0) and g.prestige.can_prestige()[0]:
+            if stars >= max(10, g.prestige.total_stars * 0.5) and g.prestige.can_prestige()[0]:
                 g.prestige.prestige()
                 self.mark("first_prestige", now)
                 # spend stars
@@ -110,10 +110,15 @@ class Bot:
         g = self.game
         # planets
         nxt = g.next_locked_planet()
+        saving = False
         if nxt and g.credits >= g.planet_unlock_cost(nxt):
             g.unlock_planet(nxt)
             self.mark(f"planet_{nxt}", now)
+        elif nxt and g.planet_unlock_cost(nxt) < g.total_income() * 1800:
+            saving = True        # like a real player: stop spending and save up for the next planet
         for pid in list(g.factories):
+            if saving:
+                break
             factory = g.factories[pid]
             # rockets: unlock & select the most valuable buildable rocket
             for rocket in g.config.rocket_list:
@@ -122,13 +127,13 @@ class Bot:
                         and g.credits >= rocket["unlock_cost"] * 1.2:
                     if g.unlock_rocket(rid):
                         self.mark(f"rocket_{rid}", now)
-            best = None
+            # Switch only when the projected income is better (players see this number in the Rockets menu).
+            best, best_income = None, g.stats_cache[pid].income_per_second
             for rid in g.unlocked_rockets:
-                ok, _ = factory.can_build(rid)
-                if ok:
-                    val = g.config.rockets[rid]["value"]
-                    if best is None or val > g.config.rockets[best]["value"]:
-                        best = rid
+                if factory.can_build(rid)[0] and rid != factory.rocket_id:
+                    proj = g.projected_income(rid, pid)
+                    if proj > best_income * 1.05:
+                        best, best_income = rid, proj
             if best and best != factory.rocket_id:
                 g.select_rocket(best, pid)
             # unlock floors needed for next rocket
@@ -176,6 +181,7 @@ def run(strategy: str, hours: float, prestige: bool, verbose: bool = True) -> di
     checkpoints = [c for c in CHECKPOINTS if c <= total] + ([total] if total not in CHECKPOINTS else [])
     results = {}
     next_cp = 0
+    goals: list = []
     started = time.time()
     while now < total:
         # Fine steps early (manual tapping matters), coarse steps later.
@@ -185,7 +191,9 @@ def run(strategy: str, hours: float, prestige: bool, verbose: bool = True) -> di
         bot.act(now)
         for _ in range(n):
             game.step(dt)
-        game.drain_events()
+        for ev in game.drain_events():
+            if ev.kind in GOAL_EVENTS:
+                goals.append((now, ev.kind, ev.data))
         now += act_every
         if game.stats["rockets_launched"] >= 1:
             bot.mark("first_launch", now)
@@ -202,9 +210,30 @@ def run(strategy: str, hours: float, prestige: bool, verbose: bool = True) -> di
             print(f"  @{format_duration(cp):>9}: credits {format_money(credits):>10}  income "
                   f"{format_money(income):>10}/s  earned {format_money(earned):>10}  planets {planets}"
                   f"  stars {stars}  rp {rp:.0f}")
+        report_gaps(goals, total)
         print("  floors:", {f: fl.level for f, fl in game.factory.floors.items()},
               "rocket:", game.factory.rocket_id)
-    return {"firsts": bot.firsts, "results": results, "game": game}
+    return {"firsts": bot.firsts, "results": results, "game": game, "goals": goals}
+
+
+GOAL_EVENTS = {"floor_unlocked", "rocket_unlocked", "planet_unlocked", "research", "prestige", "mission_claimed"}
+WINDOWS = [(0, 1800, "0-30m"), (1800, 3 * 3600, "30m-3h"), (3 * 3600, 12 * 3600, "3h-12h"),
+           (12 * 3600, 86400, "12h-1d"), (86400, 7 * 86400, "1d-7d")]
+
+
+def report_gaps(goals: list, total: float) -> dict:
+    """Longest time without a new goal reached (unlock, research, mission...) per window."""
+    times = sorted(t for t, _, _ in goals)
+    out = {}
+    for lo, hi, label in WINDOWS:
+        if lo >= total:
+            break
+        pts = [lo] + [t for t in times if lo <= t <= hi] + [min(hi, total)]
+        gaps = [b - a for a, b in zip(pts, pts[1:])]
+        count = len(pts) - 2
+        out[label] = max(gaps) if gaps else 0
+        print(f"  goals {label:>7}: {count:4d} reached, longest wait {format_duration(out[label])}")
+    return out
 
 
 def offline_test() -> None:

@@ -206,6 +206,7 @@ def test_prestige(rich_game):
     assert g.managers.get(inst.uid) is not None           # kept but unassigned
     assert g.managers.get(inst.uid).planet is None
     assert g.run_earned == 0
+    assert list(g.stats_cache) == ["earth"]               # no stale planet stats after reset
     # unspent stars boost production
     assert g.factory_stats("earth").rate["parts"] > 1.0
 

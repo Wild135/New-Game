@@ -204,6 +204,16 @@ class App:
     def floor_panel_open(self, floor_id: str) -> bool:
         return any(isinstance(s, FloorPanel) and s.floor_id == floor_id for s in self.stack)
 
+    def confirm_purchase(self, product: dict) -> None:
+        store = self.game.store
+        note = "\n\n(Test mode: no real money will be charged.)" if store.test_mode else ""
+
+        def buy():
+            if store.purchase(product["id"]):
+                self.save_now()   # save straight away so a purchase is never lost
+        self.push(ConfirmDialog(self, product["name"],
+                                f"{product['description']}\n\nPrice: {store.price_text(product)}{note}", buy, "Buy"))
+
     def tutorial_target(self, key: str, rect: pygame.Rect) -> None:
         self._frame_targets[key] = pygame.Rect(rect)
 
@@ -217,9 +227,9 @@ class App:
                 view_h = theme.HEIGHT - theme.NAV_H
                 self.factory_view.scroll.content_height = self.factory_view.layout[-1][1] + FLOOR_H + 60
                 self.factory_view.scroll.view = pygame.Rect(0, 0, theme.WIDTH, view_h)
-                self.factory_view.scroll.scroll_to(y + h / 2 - view_h * 0.55)
+                self.factory_view.scroll.glide_to(y + h / 2 - view_h * 0.55)
                 return
-        self.factory_view.scroll.scroll_to(0 if floor_id == "sky" else SKY_H)
+        self.factory_view.scroll.glide_to(0 if floor_id == "sky" else SKY_H)
 
     # ------------------------------------------------------------------ game events
     def handle_game_events(self) -> None:
@@ -263,6 +273,11 @@ class App:
                                theme.GREEN_LIGHT)
             elif k == "planet_unlocked":
                 self.audio.play("unlock")
+            elif k == "store_purchase":
+                self.audio.play("achievement")
+                self.hud.toast("Thank you for your purchase!", theme.GOLD)
+                self.particles.emit("confetti", theme.WIDTH / 2, theme.HEIGHT / 2, 90, spread=3.1, speed=800,
+                                    life=1.8, size=16, gravity=600, screen=True)
             elif k == "manager_hired":
                 self.audio.play("coin", 0.5)
 
@@ -409,7 +424,7 @@ class App:
             s.draw(surface, self.ui, dt)
         self.ui.enabled = True
         self.particles.draw(surface, 0, screen_layer=True)
-        self.hud.draw_toasts(surface)
+        self.hud.draw_toasts(surface, menu_open=bool(self.stack))
         # Tutorial overlay (paused while unrelated popups are open)
         self.tutorial_rects = dict(self.factory_view.highlight_rects)
         self.tutorial_rects.update(self.hud.highlight_rects)
