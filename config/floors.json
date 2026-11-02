@@ -1,0 +1,329 @@
+{
+  "_comment": "Factory floors. kind: producer | transport | assembly | launch | support. Display order is top to bottom.",
+  "floors": [
+    {
+      "id": "launchpad",
+      "name": "Launchpad",
+      "kind": "launch",
+      "base_rate": 1.0,
+      "base_cost": 25,
+      "cost_growth": 1.16,
+      "unlock_cost": 0,
+      "icon": "rocket",
+      "color": [
+        90,
+        140,
+        220
+      ],
+      "description": "Launches finished rockets. Upgrades let more rockets lift off in each launch window."
+    },
+    {
+      "id": "assembly",
+      "name": "Assembly",
+      "kind": "assembly",
+      "base_rate": 1.5,
+      "base_cost": 14,
+      "cost_growth": 1.15,
+      "unlock_cost": 0,
+      "icon": "gear",
+      "color": [
+        235,
+        90,
+        80
+      ],
+      "description": "Robotic arms combine delivered components into complete rockets."
+    },
+    {
+      "id": "transport",
+      "name": "Transport",
+      "kind": "transport",
+      "base_rate": 1.5,
+      "base_cost": 9,
+      "cost_growth": 1.15,
+      "unlock_cost": 0,
+      "icon": "crate",
+      "color": [
+        240,
+        170,
+        60
+      ],
+      "description": "Conveyor carts move every component from production to assembly."
+    },
+    {
+      "id": "parts",
+      "name": "Parts Production",
+      "kind": "producer",
+      "component": "parts",
+      "base_rate": 1.0,
+      "base_cost": 5,
+      "cost_growth": 1.145,
+      "unlock_cost": 0,
+      "icon": "gear",
+      "color": [
+        120,
+        200,
+        120
+      ],
+      "description": "Presses and lathes turn raw metal into rocket parts."
+    },
+    {
+      "id": "engines",
+      "name": "Engine Manufacturing",
+      "kind": "producer",
+      "component": "engines",
+      "base_rate": 0.4,
+      "base_cost": 200,
+      "cost_growth": 1.15,
+      "unlock_cost": 1500,
+      "icon": "engine",
+      "color": [
+        250,
+        120,
+        60
+      ],
+      "description": "Builds combustion chambers and nozzles. Needed by Explorer I and newer rockets."
+    },
+    {
+      "id": "fuel",
+      "name": "Fuel Systems",
+      "kind": "producer",
+      "component": "fuel",
+      "base_rate": 0.4,
+      "base_cost": 30000,
+      "cost_growth": 1.155,
+      "unlock_cost": 100000,
+      "icon": "fuel",
+      "color": [
+        80,
+        200,
+        230
+      ],
+      "description": "Refines propellant and builds tanks. Needed by Kestrel and newer rockets."
+    },
+    {
+      "id": "electronics",
+      "name": "Navigation Electronics",
+      "kind": "producer",
+      "component": "electronics",
+      "base_rate": 0.25,
+      "base_cost": 5000000.0,
+      "cost_growth": 1.16,
+      "unlock_cost": 20000000.0,
+      "icon": "chip",
+      "color": [
+        120,
+        230,
+        120
+      ],
+      "description": "Assembles guidance computers. Needed by Heavy Lifter and newer rockets."
+    },
+    {
+      "id": "structure",
+      "name": "Structural Manufacturing",
+      "kind": "producer",
+      "component": "structure",
+      "base_rate": 0.3,
+      "base_cost": 2000000000.0,
+      "cost_growth": 1.165,
+      "unlock_cost": 10000000000.0,
+      "icon": "beam",
+      "color": [
+        200,
+        200,
+        215
+      ],
+      "description": "Forges hull rings and frames. Needed by Orbital Cruiser and newer rockets."
+    },
+    {
+      "id": "special",
+      "name": "Planetary Refinery",
+      "kind": "producer",
+      "component": "special",
+      "base_rate": 0.35,
+      "base_cost": 300,
+      "cost_growth": 1.15,
+      "unlock_cost": 5000,
+      "icon": "crystal",
+      "color": [
+        200,
+        120,
+        255
+      ],
+      "description": "Harvests this planet's special resource for its exclusive rocket."
+    },
+    {
+      "id": "robotics",
+      "name": "Robotics Department",
+      "kind": "support",
+      "effect": "production",
+      "per_level": 0.01,
+      "base_cost": 200000.0,
+      "cost_growth": 1.18,
+      "unlock_cost": 5000000.0,
+      "icon": "robot",
+      "color": [
+        160,
+        170,
+        255
+      ],
+      "description": "Robot helpers speed up every production floor."
+    },
+    {
+      "id": "propulsion",
+      "name": "Advanced Propulsion",
+      "kind": "support",
+      "effect": "value",
+      "per_level": 0.01,
+      "base_cost": 50000000.0,
+      "cost_growth": 1.18,
+      "unlock_cost": 1000000000.0,
+      "icon": "flame",
+      "color": [
+        255,
+        140,
+        90
+      ],
+      "description": "Better engines mean customers pay more for every rocket launched."
+    },
+    {
+      "id": "orbital",
+      "name": "Orbital Technology",
+      "kind": "support",
+      "effect": "logistics",
+      "per_level": 0.01,
+      "base_cost": 50000000000.0,
+      "cost_growth": 1.18,
+      "unlock_cost": 1000000000000.0,
+      "icon": "satellite",
+      "color": [
+        120,
+        220,
+        255
+      ],
+      "description": "Orbital tracking speeds up transport and assembly lines."
+    },
+    {
+      "id": "experimental",
+      "name": "Experimental Engineering",
+      "kind": "support",
+      "effect": "rp_gain",
+      "per_level": 0.02,
+      "base_cost": 50000000000000.0,
+      "cost_growth": 1.19,
+      "unlock_cost": 1000000000000000.0,
+      "icon": "flask",
+      "color": [
+        210,
+        120,
+        240
+      ],
+      "description": "Prototype labs earn extra Research Points from every launch."
+    }
+  ],
+  "components": {
+    "parts": {
+      "name": "Parts",
+      "color": [
+        220,
+        70,
+        70
+      ]
+    },
+    "engines": {
+      "name": "Engines",
+      "color": [
+        250,
+        140,
+        60
+      ]
+    },
+    "fuel": {
+      "name": "Fuel",
+      "color": [
+        70,
+        190,
+        240
+      ]
+    },
+    "electronics": {
+      "name": "Electronics",
+      "color": [
+        90,
+        220,
+        110
+      ]
+    },
+    "structure": {
+      "name": "Structure",
+      "color": [
+        190,
+        195,
+        210
+      ]
+    },
+    "helium3": {
+      "name": "Helium-3",
+      "color": [
+        235,
+        235,
+        140
+      ]
+    },
+    "martian_alloy": {
+      "name": "Martian Alloy",
+      "color": [
+        230,
+        110,
+        70
+      ]
+    },
+    "cryo_ice": {
+      "name": "Cryo Ice",
+      "color": [
+        160,
+        230,
+        255
+      ]
+    },
+    "methane": {
+      "name": "Methane",
+      "color": [
+        240,
+        190,
+        90
+      ]
+    },
+    "cloud_gas": {
+      "name": "Cloud Gas",
+      "color": [
+        250,
+        220,
+        170
+      ]
+    },
+    "platinum": {
+      "name": "Platinum",
+      "color": [
+        215,
+        225,
+        235
+      ]
+    },
+    "bio_crystal": {
+      "name": "Bio Crystal",
+      "color": [
+        120,
+        250,
+        170
+      ]
+    },
+    "dark_matter": {
+      "name": "Dark Matter",
+      "color": [
+        150,
+        90,
+        230
+      ]
+    }
+  }
+}

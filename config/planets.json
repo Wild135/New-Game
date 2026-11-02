@@ -1,0 +1,371 @@
+{
+  "_comment": "Planets. value_mult multiplies rocket value, cost_mult multiplies every upgrade price there. modifiers multiply stats in that planet's factory.",
+  "planets": [
+    {
+      "id": "earth",
+      "name": "Earth",
+      "unlock_cost": 0,
+      "value_mult": 1,
+      "cost_mult": 1,
+      "special": null,
+      "modifiers": {},
+      "theme": {
+        "sky_top": [
+          40,
+          70,
+          160
+        ],
+        "sky_bottom": [
+          130,
+          190,
+          250
+        ],
+        "ground": [
+          110,
+          80,
+          60
+        ],
+        "hills": [
+          70,
+          140,
+          110
+        ],
+        "planet": [
+          80,
+          150,
+          240
+        ]
+      },
+      "description": "Home sweet home. Balanced conditions, no special resource.",
+      "trait": "Balanced"
+    },
+    {
+      "id": "moon",
+      "name": "Moon",
+      "unlock_cost": 100000000.0,
+      "value_mult": 6,
+      "cost_mult": 6,
+      "special": "helium3",
+      "modifiers": {
+        "launch_interval": 0.5
+      },
+      "theme": {
+        "sky_top": [
+          10,
+          10,
+          30
+        ],
+        "sky_bottom": [
+          40,
+          45,
+          80
+        ],
+        "ground": [
+          120,
+          120,
+          130
+        ],
+        "hills": [
+          170,
+          170,
+          180
+        ],
+        "planet": [
+          200,
+          200,
+          205
+        ]
+      },
+      "description": "Low gravity makes launches easy: launch windows are twice as frequent.",
+      "trait": "Launch interval x0.5"
+    },
+    {
+      "id": "mars",
+      "name": "Mars",
+      "unlock_cost": 500000000000.0,
+      "value_mult": 45,
+      "cost_mult": 45,
+      "special": "martian_alloy",
+      "modifiers": {
+        "production": 2.0,
+        "transport": 0.7
+      },
+      "theme": {
+        "sky_top": [
+          120,
+          60,
+          50
+        ],
+        "sky_bottom": [
+          230,
+          150,
+          110
+        ],
+        "ground": [
+          150,
+          70,
+          40
+        ],
+        "hills": [
+          190,
+          100,
+          60
+        ],
+        "planet": [
+          220,
+          100,
+          60
+        ]
+      },
+      "description": "Rich ore doubles production, but dust storms slow transport.",
+      "trait": "Production x2, Transport x0.7"
+    },
+    {
+      "id": "europa",
+      "name": "Europa",
+      "unlock_cost": 2000000000000000.0,
+      "value_mult": 320,
+      "cost_mult": 320,
+      "special": "cryo_ice",
+      "modifiers": {
+        "producer:fuel": 3.0,
+        "storage": 0.5
+      },
+      "theme": {
+        "sky_top": [
+          10,
+          20,
+          50
+        ],
+        "sky_bottom": [
+          60,
+          110,
+          160
+        ],
+        "ground": [
+          190,
+          215,
+          235
+        ],
+        "hills": [
+          150,
+          190,
+          220
+        ],
+        "planet": [
+          210,
+          190,
+          160
+        ]
+      },
+      "description": "Ice everywhere: fuel output x3, but frozen storage holds half as much.",
+      "trait": "Fuel x3, Storage x0.5"
+    },
+    {
+      "id": "titan",
+      "name": "Titan",
+      "unlock_cost": 1e+19,
+      "value_mult": 2400,
+      "cost_mult": 2400,
+      "special": "methane",
+      "modifiers": {
+        "assembly": 1.6,
+        "producer:fuel": 2.0
+      },
+      "theme": {
+        "sky_top": [
+          120,
+          80,
+          30
+        ],
+        "sky_bottom": [
+          220,
+          170,
+          80
+        ],
+        "ground": [
+          130,
+          100,
+          50
+        ],
+        "hills": [
+          170,
+          130,
+          70
+        ],
+        "planet": [
+          230,
+          180,
+          90
+        ]
+      },
+      "description": "Methane lakes fuel fast assembly lines.",
+      "trait": "Assembly x1.6, Fuel x2"
+    },
+    {
+      "id": "venus",
+      "name": "Venus Cloud Stations",
+      "unlock_cost": 5e+22,
+      "value_mult": 18000,
+      "cost_mult": 18000,
+      "special": "cloud_gas",
+      "modifiers": {
+        "transport": 2.5,
+        "production": 0.8
+      },
+      "theme": {
+        "sky_top": [
+          200,
+          120,
+          60
+        ],
+        "sky_bottom": [
+          250,
+          210,
+          140
+        ],
+        "ground": [
+          140,
+          120,
+          140
+        ],
+        "hills": [
+          240,
+          200,
+          150
+        ],
+        "planet": [
+          250,
+          200,
+          110
+        ]
+      },
+      "description": "Floating stations with lightning-fast cargo drones but cramped workshops.",
+      "trait": "Transport x2.5, Production x0.8"
+    },
+    {
+      "id": "asteroid",
+      "name": "Asteroid Belt",
+      "unlock_cost": 2e+26,
+      "value_mult": 140000,
+      "cost_mult": 140000,
+      "special": "platinum",
+      "modifiers": {
+        "producer:parts": 3.0,
+        "launch_interval": 0.6
+      },
+      "theme": {
+        "sky_top": [
+          5,
+          5,
+          20
+        ],
+        "sky_bottom": [
+          30,
+          30,
+          60
+        ],
+        "ground": [
+          100,
+          90,
+          85
+        ],
+        "hills": [
+          130,
+          120,
+          110
+        ],
+        "planet": [
+          150,
+          140,
+          130
+        ]
+      },
+      "description": "Zero-gravity mining: parts x3 and quick launches.",
+      "trait": "Parts x3, Launch interval x0.6"
+    },
+    {
+      "id": "kepler",
+      "name": "Kepler Verdant",
+      "unlock_cost": 1e+30,
+      "value_mult": 1100000,
+      "cost_mult": 1100000,
+      "special": "bio_crystal",
+      "modifiers": {
+        "rp_gain": 2.0,
+        "value": 1.25
+      },
+      "theme": {
+        "sky_top": [
+          20,
+          60,
+          70
+        ],
+        "sky_bottom": [
+          100,
+          200,
+          170
+        ],
+        "ground": [
+          60,
+          110,
+          70
+        ],
+        "hills": [
+          80,
+          170,
+          110
+        ],
+        "planet": [
+          90,
+          220,
+          160
+        ]
+      },
+      "description": "A lush fictional exoplanet. Research points x2 and rockets worth 25% more.",
+      "trait": "RP x2, Value x1.25"
+    },
+    {
+      "id": "deep_space",
+      "name": "Deep Space Colony",
+      "unlock_cost": 5e+33,
+      "value_mult": 9000000,
+      "cost_mult": 9000000,
+      "special": "dark_matter",
+      "modifiers": {
+        "production": 1.5,
+        "transport": 1.5,
+        "assembly": 1.5
+      },
+      "theme": {
+        "sky_top": [
+          5,
+          0,
+          20
+        ],
+        "sky_bottom": [
+          60,
+          20,
+          90
+        ],
+        "ground": [
+          70,
+          60,
+          90
+        ],
+        "hills": [
+          100,
+          80,
+          130
+        ],
+        "planet": [
+          170,
+          90,
+          255
+        ]
+      },
+      "description": "A colony between the stars. Every line runs 50% faster.",
+      "trait": "All lines x1.5"
+    }
+  ]
+}

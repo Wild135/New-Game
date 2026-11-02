@@ -1,0 +1,146 @@
+{
+  "_comment": "Global economy tuning. All times are in seconds unless noted.",
+  "save_version": 1,
+  "tick_seconds": 0.1,
+  "starting_credits": 20,
+  "starting_gems": 25,
+  "storage_seconds": 30,
+  "min_storage": 30,
+  "assembly_buffer_rockets": 6,
+  "manual_tap_seconds": 8,
+  "manual_max_seconds": 40,
+  "manual_launch_countdown": 3.0,
+  "launch_interval": 6.0,
+  "min_launch_interval": 1.5,
+  "offline_cap_hours": 8,
+  "offline_efficiency": 0.6,
+  "max_offline_efficiency": 1.0,
+  "autosave_seconds": 30,
+  "free_gift_hours": 4,
+  "milestones": [
+    [
+      10,
+      2
+    ],
+    [
+      25,
+      3
+    ],
+    [
+      50,
+      5
+    ],
+    [
+      100,
+      10
+    ],
+    [
+      150,
+      15
+    ],
+    [
+      200,
+      25
+    ],
+    [
+      300,
+      50
+    ],
+    [
+      400,
+      100
+    ],
+    [
+      500,
+      250
+    ],
+    [
+      750,
+      600
+    ],
+    [
+      1000,
+      1500
+    ],
+    [
+      1500,
+      4000
+    ],
+    [
+      2000,
+      10000
+    ]
+  ],
+  "support_milestones": [
+    [
+      25,
+      1.5
+    ],
+    [
+      50,
+      2
+    ],
+    [
+      100,
+      3
+    ],
+    [
+      200,
+      4
+    ],
+    [
+      400,
+      6
+    ]
+  ],
+  "max_floor_level": 2500,
+  "manager_hire_base": {
+    "common": 60,
+    "rare": 2500
+  },
+  "manager_hire_growth": {
+    "common": 2.4,
+    "rare": 3.0
+  },
+  "manager_gem_cost": {
+    "epic": 120,
+    "legendary": 400
+  },
+  "manager_gem_growth": 1.5,
+  "manager_level_cost": {
+    "common": 300,
+    "rare": 5000,
+    "epic": 40000,
+    "legendary": 250000
+  },
+  "manager_level_growth": 5.0,
+  "manager_max_level": 10,
+  "manager_level_bonus": 0.12,
+  "daily_rewards": [
+    {
+      "gems": 5
+    },
+    {
+      "credits_minutes": 10
+    },
+    {
+      "gems": 10
+    },
+    {
+      "rp": 15
+    },
+    {
+      "gems": 15
+    },
+    {
+      "credits_minutes": 30
+    },
+    {
+      "gems": 40
+    }
+  ],
+  "free_gift": {
+    "gems": 5,
+    "credits_minutes": 5
+  }
+}
