@@ -6,7 +6,7 @@ run on a physical Windows PC** — see "Manual verification" below.
 
 ## Automated tests — `python -m pytest`
 
-**Result: 99 passed, 0 failed** (about 13 s).
+**Result: 109 passed, 0 failed** (about 11 s).
 
 | File | What it covers |
 |---|---|
@@ -15,39 +15,42 @@ run on a physical Windows PC** — see "Manual verification" below.
 | `test_game.py` | can't overspend, single/bulk/max upgrades, level cap, milestone events, floor unlocks, manager hire/assign/slot rules/bonuses/levels/abilities/cooldowns/replacement, unique gem managers, research rules + effects, rocket unlock/select/value, planets unlock order + switching + preserved progress + parallel factories, prestige reset/keep rules, legacy upgrades, missions/achievements/daily/login/gift claimed only once, clock moved back, shop cosmetics/boosts/time-warp, workforce, rapid clicking, 1e299 money, large frame gaps, gradual feature unlocks |
 | `test_offline_and_saves.py` | offline needs automation, cap (8 h default), matches steady-state math, collected only once, negative elapsed time, research extends cap, pending reward survives save, full save round-trip, missing save, corrupted save → backup restore, tampered checksum rejected, broken main never overwrites good backup, atomic write leaves no temp files, migration v0→v1 and newer-version refusal, invalid field values in a save |
 | `test_config_and_architecture.py` | config validation (negative cost, unknown kind, duplicate id, bad growth, unknown component/research, missing files, bad JSON), **game logic does not import pygame** |
+| `test_store.py` | store purchases (test provider), one-time items, failed payments, duplicate transactions never grant twice, Golden Investor perk survives prestige, exclusive cosmetics, store saves, Collect ×2, ability reset |
 | `test_app_headless.py` | loading → menu → game via a real click, every screen and every floor panel opens and draws, **the tutorial can be completed by clicking only the highlighted targets**, upgrade button click, rapid clicks + wheel scrolling, save/reload through the app, computer sleep → offline screen |
 
-## Economy simulation — `python tools/economy_sim.py`
+## Economy simulation: `python tools/economy_sim.py`
 
-A bot plays the real logic using two strategies ("bottleneck-first" and "cheapest-first").
-These are design targets, not guarantees. Human players are slower than the bot early on and
-faster later thanks to offline earnings.
+A bot plays the real logic. It plays non-stop and optimally, so a real player (a few hours a day
+plus offline earnings) will be roughly 3–5× slower in calendar time. The **"longest wait"** column
+is the longest stretch without reaching any new goal (unlock, research, mission), which is the
+main measure of boredom.
 
-| Milestone | Target | Bottleneck bot | Cheapest bot |
-|---|---|---|---|
-| First upgrade | < 1 min | 0 s | 0 s |
-| First launch | ≈ 2 min (incl. tutorial) | 13 s (no tutorial reading) | 13 s |
-| First manager / automation | 5–10 min | 6 s / full line at 1 m 55 s | 6 s / 4 m 25 s |
-| First major expansion (Engine floor + Explorer I) | 20–30 min | 3 m 49 s / 5 m 19 s | 6 m 37 s / 9 m 55 s |
-| Kestrel (3rd rocket) | — | 19.5 min | 38 min |
-| Moon | — | ≈ 5 h 20 m | — |
-| First Space Legacy | not mandatory early | ≈ 5 h 40 m | — |
-| Mars / Europa / Titan | — | ≈ 1 d 4 h / 2 d / 3 d 5 h | — |
+Latest run ("cheapest" strategy, with saving for planets and Space Legacy resets):
 
-One-week bot run (bottleneck, with prestige): reaches 5 planets and about $111Qa/s income.
-Offline (30-min save, automated): 1 h → $8.75M, 8 h → $70M, 24 h → capped at 8 h. ✔
+| Time played | Goals reached | Longest wait |
+|---|---|---|
+| 0–30 min | 25 | 5 m 36 s |
+| 30 min–3 h | 32 | 24 m 45 s |
+| 3 h–12 h | 144 | 30 m 40 s |
+| 12 h–1 day | 195 | 38 m |
+| 1–7 days | 1,249 | 1 d 11 h (late game, Asteroid Belt → Kepler) |
 
-Balancing problems found and fixed during development:
+Milestones: Explorer I 15 min · Kestrel 31 min · Moon 2 h · first Space Legacy ≈3 h · Mars ≈8.5 h ·
+Europa ≈20 h · Titan ≈1.4 d · Venus ≈2.4 d · Asteroid Belt ≈2.8 d · Kepler ≈6.3 d ·
+Deep Space Colony ≈7 d · Quantum Starship ≈9.8 d (bot time).
 
-* The first version reached $500Qa in one hour. Fixed with steeper cost growth (1.145–1.165,
-  matching the reference image's Lv.150 costs), much higher rocket/floor/planet unlock prices,
-  and weaker support floors.
-* Research Points exploded with production. RP now grows with log10 of each launch batch.
-* Prestige feedback loop. Star exponent lowered to 0.33 and star bonus to 2 %.
+Balancing history:
+* v1 reached $500Qa in one hour. Fixed with steeper cost growth, higher unlock prices and weaker
+  support floors.
+* Research Points now grow with log10 of each launch batch.
+* v2 had a 9-hour dead zone after the Kestrel and a 17-hour wall after Mars. Fixed by moving
+  electronics, the Heavy Lifter and the Moon earlier, adding 7 mid-game missions, and shrinking the
+  late planet price jumps.
+* Switching rockets could lower income. The Rockets screen now shows each rocket's estimated income.
+* Bug fixed: stale stats for removed planets after a prestige reset inflated the displayed income.
 
-Remaining observations: the first expansion arrives earlier than the 20–30 min target for an
-optimal bot (fine for beginners). Switching to a new rocket temporarily lowers income until the new
-component floor is upgraded. The BOTTLENECK badge explains this in game.
+Known remaining issue: one late-game stretch (about 1.5 days of non-stop bot play) between the
+Asteroid Belt and Kepler Verdant.
 
 ## Performance (headless, CPU-only software rendering)
 
