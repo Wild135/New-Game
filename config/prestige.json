@@ -1,0 +1,130 @@
+{
+  "_comment": "Space Legacy prestige. Stars = floor(scale * (run_earnings / divisor) ^ exponent). Each unspent star gives star_bonus extra production.",
+  "divisor": 10000000000,
+  "scale": 10,
+  "exponent": 0.36,
+  "min_stars": 1,
+  "star_bonus": 0.02,
+  "upgrades": [
+    {
+      "id": "legacy_production",
+      "name": "Legacy Production",
+      "description": "All lines +25% per level.",
+      "effects": [
+        {
+          "stat": "all",
+          "mult_per_level": 0.25
+        }
+      ],
+      "base_cost": 5,
+      "cost_growth": 1.6,
+      "max_level": 50,
+      "icon": "gear"
+    },
+    {
+      "id": "swift_launches",
+      "name": "Swift Launches",
+      "description": "Launch windows 6% sooner per level.",
+      "effects": [
+        {
+          "stat": "launch_interval",
+          "mult_per_level": -0.06
+        }
+      ],
+      "base_cost": 4,
+      "cost_growth": 1.8,
+      "max_level": 8,
+      "icon": "rocket"
+    },
+    {
+      "id": "golden_payloads",
+      "name": "Golden Payloads",
+      "description": "Rocket value +30% per level.",
+      "effects": [
+        {
+          "stat": "value",
+          "mult_per_level": 0.3
+        }
+      ],
+      "base_cost": 6,
+      "cost_growth": 1.6,
+      "max_level": 50,
+      "icon": "coin"
+    },
+    {
+      "id": "frugal",
+      "name": "Frugal Engineering",
+      "description": "Upgrades 4% cheaper per level.",
+      "effects": [
+        {
+          "stat": "cost",
+          "mult_per_level": -0.04
+        }
+      ],
+      "base_cost": 5,
+      "cost_growth": 1.9,
+      "max_level": 10,
+      "icon": "bolt"
+    },
+    {
+      "id": "inspired_managers",
+      "name": "Inspired Managers",
+      "description": "Manager bonuses +10% per level.",
+      "effects": [
+        {
+          "stat": "manager_bonus",
+          "add_per_level": 0.1
+        }
+      ],
+      "base_cost": 6,
+      "cost_growth": 1.7,
+      "max_level": 20,
+      "icon": "manager"
+    },
+    {
+      "id": "research_grants",
+      "name": "Research Grants",
+      "description": "Research Points +25% per level.",
+      "effects": [
+        {
+          "stat": "rp_gain",
+          "mult_per_level": 0.25
+        }
+      ],
+      "base_cost": 4,
+      "cost_growth": 1.6,
+      "max_level": 30,
+      "icon": "flask"
+    },
+    {
+      "id": "head_start",
+      "name": "Head Start",
+      "description": "Begin each run with more credits (x10 per level).",
+      "effects": [
+        {
+          "stat": "start_credits",
+          "add_per_level": 1
+        }
+      ],
+      "base_cost": 3,
+      "cost_growth": 2.2,
+      "max_level": 8,
+      "icon": "coin"
+    },
+    {
+      "id": "legacy_theme",
+      "name": "Legacy Gold Theme",
+      "description": "Unlocks the golden factory theme.",
+      "effects": [
+        {
+          "stat": "theme_legacy",
+          "add_per_level": 1
+        }
+      ],
+      "base_cost": 15,
+      "cost_growth": 1,
+      "max_level": 1,
+      "icon": "star"
+    }
+  ]
+}

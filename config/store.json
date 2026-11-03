@@ -1,0 +1,108 @@
+{
+  "_comment": "Real-money store. 'test_mode' true = purchases are simulated and nothing is charged. Prices are display prices in USD; real stores set local prices themselves.",
+  "enabled": true,
+  "test_mode": true,
+  "products": [
+    {
+      "id": "starter_pack",
+      "name": "Starter Pack",
+      "price": 2.99,
+      "one_time": true,
+      "tag": "ONE TIME",
+      "icon": "gift",
+      "description": "300 gems, the Rare manager Kai and 2 hours of instant income.",
+      "grant": {
+        "gems": 300,
+        "manager": "kai",
+        "warp_hours": 2
+      }
+    },
+    {
+      "id": "golden_investor",
+      "name": "Golden Investor",
+      "price": 7.99,
+      "one_time": true,
+      "tag": "PERMANENT",
+      "icon": "coin",
+      "description": "Forever: rockets sell for 50% more, +4h offline cap, +20% offline efficiency.",
+      "grant": {
+        "perk": "golden_investor"
+      }
+    },
+    {
+      "id": "galaxy_bundle",
+      "name": "Galaxy Bundle",
+      "price": 3.99,
+      "one_time": true,
+      "tag": "EXCLUSIVE",
+      "icon": "star",
+      "description": "Exclusive Galaxy Swirl paint, Starfire exhaust and Supernova launch effect.",
+      "grant": {
+        "cosmetics": [
+          "paint_galaxy",
+          "exhaust_galaxy",
+          "effect_galaxy"
+        ],
+        "gems": 50
+      }
+    },
+    {
+      "id": "gems_small",
+      "name": "Handful of Gems",
+      "price": 0.99,
+      "icon": "gem",
+      "description": "80 gems.",
+      "grant": {
+        "gems": 80
+      }
+    },
+    {
+      "id": "gems_medium",
+      "name": "Pouch of Gems",
+      "price": 4.99,
+      "tag": "POPULAR",
+      "icon": "gem",
+      "description": "450 gems (+12% bonus).",
+      "grant": {
+        "gems": 450
+      }
+    },
+    {
+      "id": "gems_large",
+      "name": "Chest of Gems",
+      "price": 9.99,
+      "icon": "gem",
+      "description": "1,000 gems (+25% bonus).",
+      "grant": {
+        "gems": 1000
+      }
+    },
+    {
+      "id": "gems_huge",
+      "name": "Vault of Gems",
+      "price": 24.99,
+      "tag": "BEST VALUE",
+      "icon": "gem",
+      "description": "2,800 gems (+40% bonus).",
+      "grant": {
+        "gems": 2800
+      }
+    }
+  ],
+  "perks": {
+    "golden_investor": [
+      {
+        "stat": "value",
+        "mult": 1.5
+      },
+      {
+        "stat": "offline_cap_hours",
+        "add": 4
+      },
+      {
+        "stat": "offline_efficiency",
+        "add": 0.2
+      }
+    ]
+  }
+}

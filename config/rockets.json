@@ -1,0 +1,329 @@
+{
+  "_comment": "Rockets. recipe = components consumed per rocket. 'special' in a recipe means the planet's special resource. planet = null means any planet.",
+  "rockets": [
+    {
+      "id": "mini",
+      "name": "Mini Rocket",
+      "recipe": {
+        "parts": 10
+      },
+      "value": 10,
+      "rp": 0.3,
+      "unlock_cost": 0,
+      "planet": null,
+      "research": null,
+      "colors": {
+        "body": [
+          245,
+          245,
+          250
+        ],
+        "accent": [
+          225,
+          60,
+          60
+        ]
+      },
+      "fins": 3,
+      "height": 1.0,
+      "bonus": null,
+      "description": "A tiny sounding rocket. Simple, cheap and reliable."
+    },
+    {
+      "id": "explorer",
+      "name": "Explorer I",
+      "recipe": {
+        "parts": 12,
+        "engines": 4
+      },
+      "value": 50,
+      "rp": 0.4,
+      "unlock_cost": 6000,
+      "planet": null,
+      "research": null,
+      "colors": {
+        "body": [
+          240,
+          240,
+          245
+        ],
+        "accent": [
+          60,
+          120,
+          230
+        ]
+      },
+      "fins": 3,
+      "height": 1.1,
+      "bonus": null,
+      "description": "Our first real orbital rocket with a proper engine."
+    },
+    {
+      "id": "kestrel",
+      "name": "Kestrel",
+      "recipe": {
+        "parts": 15,
+        "engines": 5,
+        "fuel": 5
+      },
+      "value": 250,
+      "rp": 0.5,
+      "unlock_cost": 250000,
+      "planet": null,
+      "research": null,
+      "colors": {
+        "body": [
+          250,
+          250,
+          250
+        ],
+        "accent": [
+          40,
+          40,
+          50
+        ]
+      },
+      "fins": 4,
+      "height": 1.2,
+      "bonus": {
+        "stat": "rp_gain",
+        "mult": 1.1
+      },
+      "description": "A fast, reusable launcher. Bonus: +10% Research Points."
+    },
+    {
+      "id": "heavy_lifter",
+      "name": "Heavy Lifter",
+      "recipe": {
+        "parts": 20,
+        "engines": 8,
+        "fuel": 8,
+        "electronics": 4
+      },
+      "value": 1200,
+      "rp": 0.6,
+      "unlock_cost": 15000000.0,
+      "planet": null,
+      "research": null,
+      "colors": {
+        "body": [
+          235,
+          235,
+          240
+        ],
+        "accent": [
+          240,
+          150,
+          40
+        ]
+      },
+      "fins": 4,
+      "height": 1.35,
+      "bonus": {
+        "stat": "launch_capacity",
+        "mult": 1.25
+      },
+      "description": "Three cores strapped together. Bonus: +25% launch capacity."
+    },
+    {
+      "id": "orbital_cruiser",
+      "name": "Orbital Cruiser",
+      "recipe": {
+        "parts": 25,
+        "engines": 10,
+        "fuel": 10,
+        "electronics": 6,
+        "structure": 9
+      },
+      "value": 6000,
+      "rp": 0.7,
+      "unlock_cost": 15000000000.0,
+      "planet": null,
+      "research": null,
+      "colors": {
+        "body": [
+          230,
+          235,
+          245
+        ],
+        "accent": [
+          130,
+          80,
+          220
+        ]
+      },
+      "fins": 4,
+      "height": 1.45,
+      "bonus": null,
+      "description": "A crewed spaceplane-style cruiser for space stations."
+    },
+    {
+      "id": "lunar_explorer",
+      "name": "Lunar Explorer",
+      "recipe": {
+        "parts": 18,
+        "engines": 6,
+        "special": 8
+      },
+      "value": 2000,
+      "rp": 0.8,
+      "unlock_cost": 12000000.0,
+      "planet": "moon",
+      "research": null,
+      "colors": {
+        "body": [
+          245,
+          245,
+          230
+        ],
+        "accent": [
+          220,
+          190,
+          60
+        ]
+      },
+      "fins": 4,
+      "height": 1.25,
+      "bonus": {
+        "stat": "rp_gain",
+        "mult": 1.25
+      },
+      "description": "Moon-built lander carrier powered by Helium-3. Bonus: +25% RP."
+    },
+    {
+      "id": "mars_transport",
+      "name": "Mars Transport",
+      "recipe": {
+        "parts": 24,
+        "engines": 8,
+        "fuel": 8,
+        "special": 10
+      },
+      "value": 15000,
+      "rp": 0.9,
+      "unlock_cost": 800000000000.0,
+      "planet": "mars",
+      "research": null,
+      "colors": {
+        "body": [
+          245,
+          235,
+          225
+        ],
+        "accent": [
+          210,
+          80,
+          40
+        ]
+      },
+      "fins": 3,
+      "height": 1.4,
+      "bonus": null,
+      "description": "A rugged cargo ship forged from Martian alloy."
+    },
+    {
+      "id": "deep_space_voyager",
+      "name": "Deep Space Voyager",
+      "recipe": {
+        "parts": 30,
+        "engines": 10,
+        "fuel": 12,
+        "electronics": 6,
+        "special": 12
+      },
+      "value": 100000.0,
+      "rp": 1.0,
+      "unlock_cost": 800000000000000.0,
+      "planet": "europa",
+      "research": "deep_space_nav",
+      "colors": {
+        "body": [
+          235,
+          245,
+          255
+        ],
+        "accent": [
+          40,
+          170,
+          220
+        ]
+      },
+      "fins": 4,
+      "height": 1.5,
+      "bonus": null,
+      "description": "Cryo-cooled probe carrier for the outer planets. Requires Deep Space Navigation research."
+    },
+    {
+      "id": "interstellar_pioneer",
+      "name": "Interstellar Pioneer",
+      "recipe": {
+        "parts": 36,
+        "engines": 14,
+        "fuel": 14,
+        "electronics": 10,
+        "structure": 10,
+        "special": 16
+      },
+      "value": 1000000.0,
+      "rp": 1.2,
+      "unlock_cost": 5e+21,
+      "planet": "asteroid",
+      "research": "warp_theory",
+      "colors": {
+        "body": [
+          240,
+          240,
+          250
+        ],
+        "accent": [
+          200,
+          200,
+          220
+        ]
+      },
+      "fins": 4,
+      "height": 1.6,
+      "bonus": {
+        "stat": "value",
+        "mult": 1.2
+      },
+      "description": "Platinum-hulled starship. Requires Warp Theory research. Bonus: +20% value."
+    },
+    {
+      "id": "quantum_starship",
+      "name": "Quantum Starship",
+      "recipe": {
+        "parts": 40,
+        "engines": 16,
+        "fuel": 16,
+        "electronics": 14,
+        "structure": 14,
+        "special": 20
+      },
+      "value": 10000000.0,
+      "rp": 1.5,
+      "unlock_cost": 1e+25,
+      "planet": "deep_space",
+      "research": "quantum_drive",
+      "colors": {
+        "body": [
+          30,
+          30,
+          50
+        ],
+        "accent": [
+          170,
+          90,
+          255
+        ]
+      },
+      "fins": 4,
+      "height": 1.75,
+      "bonus": {
+        "stat": "value",
+        "mult": 1.5
+      },
+      "description": "The pinnacle of rocket science, folding space with dark matter. Bonus: +50% value."
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+# Runtime
+pygame-ce>=2.5.0
+numpy>=1.26
+# Development / testing
+pytest>=8.0
+# Packaging a Windows .exe (only needed when building)
+pyinstaller>=6.0
